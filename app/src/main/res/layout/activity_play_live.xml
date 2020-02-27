@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:collapsedTitleGravity="center"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="500"
+            app:statusBarScrim="@color/colorPrimary"
+            android:background="#000000"
+            >
+            <ImageView
+                android:id="@+id/imv_cover_pre"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/qb_px_230"
+                android:visibility="invisible"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.9"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                />
+
+
+            <top.bilibililike.player.customedView.videoView.MultiSampleVideo
+                android:id="@+id/audio_player"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+
+            <top.bilibililike.player.customedView.videoView.MultiSampleVideo
+                android:id="@+id/av_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.9"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed" />
+
+            <RelativeLayout
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tx_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/qb_px_80"
+                    android:drawableStart="@drawable/ic_fab_play"
+                    android:drawablePadding="@dimen/qb_px_8"
+                    android:gravity="center"
+                    android:text="立即播放"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="这里还不知道放什么，有能Man能给点建议吗。"
+        android:textSize="24sp"
+        />
+
+
+    <!--<androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+
+        />-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

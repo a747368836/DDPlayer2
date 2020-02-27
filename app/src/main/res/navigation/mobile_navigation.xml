@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/sub_navigation">
+
+    <navigation
+        android:id="@+id/sub_navigation"
+        app:startDestination="@+id/nav_home"
+        android:name="top.bilibililike.player.ui.home.HomeFragment"
+        android:label="@string/menu_home">
+        <fragment
+            android:id="@+id/nav_home"
+            android:name="top.bilibililike.player.ui.recommend.RecommendFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home" >
+        </fragment>
+        <fragment
+            android:id="@+id/nav_gallery"
+            android:name="top.bilibililike.player.ui.live.liveFragment.LiveFragment"
+            android:label="@string/menu_gallery"
+            tools:layout="@layout/fragment_live" >
+        </fragment>
+
+        <fragment
+            android:id="@+id/nav_slideshow"
+            android:name="top.bilibililike.player.ui.video.VideoFragment"
+            android:label="@string/menu_slideshow"
+            tools:layout="@layout/fragment_slideshow" >
+        </fragment>
+
+    </navigation>
+
+
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="top.bilibililike.player.ui.live.liveFragment.LiveFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_live" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="top.bilibililike.player.ui.video.VideoFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="top.bilibililike.player.ui.antiVirus.AntiVirusFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="top.bilibililike.player.ui.followBangumi.FollowBangumiFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="top.bilibililike.player.ui.hotSpot.HotSpotFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send" />
+
+</navigation>
