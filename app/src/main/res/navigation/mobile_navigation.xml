@@ -27,7 +27,7 @@
             android:id="@+id/nav_slideshow"
             android:name="top.bilibililike.player.ui.video.VideoFragment"
             android:label="@string/menu_slideshow"
-            tools:layout="@layout/fragment_slideshow" >
+            tools:layout="@layout/fragment_video" >
         </fragment>
 
     </navigation>
@@ -44,7 +44,7 @@
         android:id="@+id/nav_slideshow"
         android:name="top.bilibililike.player.ui.video.VideoFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_video" />
 
     <fragment
         android:id="@+id/nav_tools"
@@ -56,12 +56,12 @@
         android:id="@+id/nav_share"
         android:name="top.bilibililike.player.ui.followBangumi.FollowBangumiFragment"
         android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_bangumi" />
 
     <fragment
         android:id="@+id/nav_send"
         android:name="top.bilibililike.player.ui.hotSpot.HotSpotFragment"
         android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_hotspot" />
 
 </navigation>

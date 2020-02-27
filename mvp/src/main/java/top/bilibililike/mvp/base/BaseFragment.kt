@@ -14,6 +14,8 @@ abstract class BaseFragment : Fragment() {
 
     abstract fun getLayoutId(): Int
 
+    abstract fun getTitle() : String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

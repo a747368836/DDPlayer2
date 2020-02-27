@@ -9,6 +9,7 @@ import top.bilibililike.subtitle.subtitle.SubtitleService
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_live.*
 import top.bilibililike.player.R
@@ -17,12 +18,14 @@ import top.bilibililike.player.ui.live.subtitle.roominfo.RoomInfoAdapter
 import top.bilibililike.player.ui.live.subtitle.roominfo.RoomRepo
 import top.bilibililike.player.ui.live.subtitle.utils.ToastUtil
 import top.bilibililike.mvp.mvp.MVPFragment
+import top.bilibililike.mvp.widget.LoadingDialog
+import top.bilibililike.mvp.widget.LoadingView
 
 
-class LiveFragment : MVPFragment<LivePresenter>(), RoomInfoAdapter.ClickCallback,
+class LiveFragment : MVPFragment<LiveContract.ILivePresenter>(), RoomInfoAdapter.ClickCallback,
     LiveContract.ILiveView {
 
-    lateinit var presenter: LivePresenter
+
     private var subtitleService: SubtitleService? = null
     private val mConnection = object : ServiceConnection {
         override fun onServiceConnected(
@@ -42,8 +45,7 @@ class LiveFragment : MVPFragment<LivePresenter>(), RoomInfoAdapter.ClickCallback
     }
 
     override fun bindPresenter(): LivePresenter {
-        presenter = LivePresenter()
-        return presenter
+        return LivePresenter()
     }
 
     override fun initView() {
@@ -76,12 +78,12 @@ class LiveFragment : MVPFragment<LivePresenter>(), RoomInfoAdapter.ClickCallback
         Log.d("点击了","点击了  $roomId")
     }
 
+    override fun getTitle():String = "直播"
 
     override fun onDestroy() {
         super.onDestroy()
         context?.unbindService(mConnection)
     }
-
 
 
 }

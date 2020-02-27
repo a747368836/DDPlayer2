@@ -1,26 +1,16 @@
 package top.bilibililike.player.ui.recommend
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import top.bilibililike.mvp.mvp.MVPFragment
 import top.bilibililike.player.R
 
-class RecommendFragment : Fragment() {
 
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-        ): View? {
-
-            val root = inflater.inflate(R.layout.fragment_home, container, false)
-
-            return root
+class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendContract.View {
+    override fun getTitle(): String {
+        return "推荐"
     }
 
+    override fun getLayoutId(): Int = R.layout.activity_recommend
 
+    override fun bindPresenter(): RecommendContract.Presenter = RecommendPresenter(this)
 }

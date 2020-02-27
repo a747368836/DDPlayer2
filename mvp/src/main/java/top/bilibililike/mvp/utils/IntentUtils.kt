@@ -6,11 +6,6 @@ import android.os.Parcelable
 import java.io.Serializable
 import java.lang.Exception
 
-/**
- *  @author:  hyzhan
- *  @date:    2019/7/18
- *  @desc:    TODO
- */
 object IntentUtils{
 
     fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {

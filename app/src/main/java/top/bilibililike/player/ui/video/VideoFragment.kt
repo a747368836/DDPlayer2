@@ -1,31 +1,19 @@
 package top.bilibililike.player.ui.video
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+
+import top.bilibililike.mvp.mvp.MVPFragment
 import top.bilibililike.player.R
 
-class VideoFragment : Fragment() {
+/**
+ *  @author: Xbs
+ *  @date:   2020/02/27
+ *  @desc:   $project
+ */
 
-    private lateinit var slideshowViewModel: VideoViewModel
+class VideoFragment : MVPFragment<VideoContract.Presenter>(), VideoContract.View {
+    override fun getTitle(): String = "影视"
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        slideshowViewModel =
-            ViewModelProviders.of(this).get(VideoViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
-    }
+    override fun getLayoutId(): Int = R.layout.activity_video
+
+    override fun bindPresenter(): VideoContract.Presenter = VideoPresenter(this)
 }
