@@ -80,6 +80,10 @@ abstract class BasePresenter<V : BaseContract.View>(view: V) : BaseContract.Pres
             launchUI({ block()?.execute(successBlock, failBlock) }, exceptionBlock)
         }
 
+        fun requestCache(block: suspend CoroutineScope.() -> Response<R>?) {
+            launchUI({ block()?.execute(successBlock, failBlock) }, exceptionBlock)
+        }
+
         fun onSuccess(block: (R?) -> Unit) {
             this.successBlock = block
         }

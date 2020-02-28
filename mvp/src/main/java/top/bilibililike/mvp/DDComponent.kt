@@ -7,7 +7,7 @@ import top.bilibililike.mvp.common.Preference
 import top.bilibililike.mvp.http.RetrofitConfig
 
 
-object KtArmor {
+object DDComponent {
 
     lateinit var retrofit: RetrofitConfig
 

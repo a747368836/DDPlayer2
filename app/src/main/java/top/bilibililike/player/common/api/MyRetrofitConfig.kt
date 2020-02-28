@@ -6,7 +6,8 @@ import retrofit2.Retrofit
 import top.bilibililike.mvp.http.BaseOkHttpClient
 import top.bilibililike.mvp.http.BaseRetrofit
 import top.bilibililike.mvp.http.BaseRetrofitConfig
-import top.bilibililike.player.common.BiliInterceptor
+import top.bilibililike.player.common.http.interceptors.BiliGetInterceptor
+import top.bilibililike.player.common.http.interceptors.BiliPostInterceptor
 
 class MyRetrofitConfig : BaseRetrofitConfig() {
     override val baseUrl: String
@@ -19,6 +20,10 @@ class MyRetrofitConfig : BaseRetrofitConfig() {
     }
 
     override fun initOkHttpClient(): OkHttpClient {
-        return BaseOkHttpClient.init(BiliInterceptor(null))
+        return BaseOkHttpClient.init(
+            BiliGetInterceptor(
+                null
+            ), BiliPostInterceptor()
+        )
     }
 }

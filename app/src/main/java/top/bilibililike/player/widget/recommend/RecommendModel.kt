@@ -9,6 +9,6 @@ import top.bilibililike.player.common.http.ApiManager
 
 object RecommendModel: BaseModel(){
     suspend fun loadRecommendList(isRefresh:Boolean) : BaseResponse<Data> {
-        return launchIO { ApiManager.appService.getRecommendList(isRefresh).await() }
+        return launchIO { ApiManager.biliService.getRecommendList(isRefresh).await() }
     }
 }

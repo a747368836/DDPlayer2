@@ -1,8 +1,7 @@
 package top.bilibililike.player.common.http
 
 import top.bilibililike.mvp.http.RetrofitFactory
-import top.bilibililike.player.common.http.bilibili.AppService
-import top.bilibililike.player.common.http.bilibili.LiveService
+import top.bilibililike.player.common.http.bilibili.BiliService
 
 /**
  *  Project: DDPlayer
@@ -11,11 +10,7 @@ import top.bilibililike.player.common.http.bilibili.LiveService
  */
 
 object ApiManager {
-    val appService by lazy {
-        RetrofitFactory.create(AppService::class.java)
-    }
-
-    val liveService by lazy {
-        RetrofitFactory.create(LiveService::class.java)
+    val biliService by lazy {
+        RetrofitFactory.create(BiliService::class.java)
     }
 }

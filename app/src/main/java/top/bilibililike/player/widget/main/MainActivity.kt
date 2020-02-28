@@ -1,5 +1,6 @@
-package top.bilibililike.player
+package top.bilibililike.player.widget.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,40 +10,52 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import top.bilibililike.mvp.base.BaseFragment
 import top.bilibililike.mvp.ext.Toasts.toast
 import top.bilibililike.player.widget.live.subtitle.utils.ToastUtil
 import top.bilibililike.mvp.mvp.MVPActivity
+import top.bilibililike.player.R
+import top.bilibililike.player.common.bean.userInfo.Data
 import top.bilibililike.player.supportClass.MyPagerAdapter
 import top.bilibililike.player.widget.antivirus.ui.AntiVirusFragment
 import top.bilibililike.player.widget.bangumi.BangumiFragment
 import top.bilibililike.player.widget.hotspot.HotSpotFragment
 import top.bilibililike.player.widget.live.liveFragment.*
+import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
 import top.bilibililike.player.widget.video.VideoFragment
 
 
-
-class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {
-    override fun bindPresenter(): LivePresenter {
-        return LivePresenter()
+class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
+    @SuppressLint("SetTextI18n")
+    override fun showUserInfo(dataBean: Data) {
+        val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
+        Glide.with(this).load(dataBean.face).into(avatarView)
+        val nickname = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_nickname)
+        nickname.setText(dataBean.name)
+        val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
+        coinTextView.setText("硬币：${dataBean.coins}\n签名：${dataBean.sign}")
     }
+
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var navController: NavController? = null
+
+    override fun bindPresenter(): MainContract.Presenter = MainPresenter(this)
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
@@ -50,7 +63,6 @@ class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {
     }
 
     override fun getLayoutId(): Int {
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return R.layout.activity_main
     }
 
@@ -150,17 +162,29 @@ class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {
         //init appBar's navitation and item
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_home,
+                R.id.nav_gallery,
+                R.id.nav_slideshow,
+                R.id.nav_tools,
+                R.id.nav_share,
+                R.id.nav_send
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        val intent = Intent(applicationContext, LoginActivity::class.java)
+        val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
+        avatarView?.setOnClickListener { startActivity(intent) }
+
 
         requestDrawOverlays()
 
         requestReadAndWrite()
 
+    }
+
+    override fun initData() {
+        presenter.loadUserInfo()
     }
 
     private fun requestReadAndWrite() {
@@ -202,7 +226,9 @@ class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {
         fun requestAlertWindowPermission() {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             intent.data = Uri.parse("package:" + packageName)
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivityForResult(intent,
+                REQUEST_CODE
+            )
         }
         if (!commonRomPermissionCheck()) {
             requestAlertWindowPermission()
@@ -224,7 +250,6 @@ class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {
 
         }
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

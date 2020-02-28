@@ -1,9 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".widget.login.LoginActivity">
+    tools:context=".widget.login.LoginActivity"
+
+    >
+    <com.google.android.material.appbar.AppBarLayout
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="#ffffff"
+            app:titleTextAppearance="@style/ToolbarTitle"
+            app:title="登录"
+            app:subtitleTextAppearance="@style/ToolbarTitle"
+            app:navigationIcon="@mipmap/ic_back"
+            >
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/linear_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_128">
+        <ImageView
+            android:id="@+id/img_22"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:src="@mipmap/ic_22"
+            />
+        <ImageView
+            android:paddingStart="@dimen/qb_px_16"
+            android:paddingEnd="@dimen/qb_px_16"
+            android:id="@+id/img_small_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_bili_logo"
+            android:scaleType="centerInside"
+            />
+        <ImageView
+            android:id="@+id/img_33"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:src="@mipmap/ic_33"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginStart="@dimen/qb_px_16"
+            android:layout_marginEnd="@dimen/qb_px_16"
+            android:id="@+id/mTilAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/colorPrimary"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mEtAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="账号"
+                android:inputType="text"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mTilPassword"
+            android:layout_marginStart="@dimen/qb_px_16"
+            android:layout_marginEnd="@dimen/qb_px_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/qb_px_16">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mEtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="密码"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_marginStart="@dimen/qb_px_16"
+            android:layout_marginEnd="@dimen/qb_px_16"
+            android:id="@+id/mBtnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/qb_px_32"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:text="登录"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录即代表你同意"
+                android:textColor="@color/defaultTextGray"
+                />
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 用户协议 "
+                android:textColor="@color/colorPrimary"
+                />
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="和"
+                android:textColor="@color/defaultTextGray"
+                />
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 隐私协议 "
+                android:textColor="@color/colorPrimary"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="遇到问题？"
+                android:textColor="@color/defaultTextGray"
+                />
+            <TextView
+                android:layout_marginTop="@dimen/qb_px_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看帮助"
+                android:textColor="@color/colorPrimary"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

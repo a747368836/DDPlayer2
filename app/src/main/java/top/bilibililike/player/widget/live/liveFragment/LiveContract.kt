@@ -8,6 +8,8 @@ class LiveContract : BaseContract{
         fun getLivers(roomId:Array<String>)
     }
 
-    interface ILiveView : BaseContract.View
+    interface ILiveView : BaseContract.View{
+
+    }
 }
 

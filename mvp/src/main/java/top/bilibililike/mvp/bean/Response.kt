@@ -8,4 +8,6 @@ interface Response<T> {
     fun getMessage(): String
 
     fun getRawData(): T?
+
+    fun getTs():Int?
 }
