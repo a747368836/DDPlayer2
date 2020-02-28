@@ -2,10 +2,12 @@ package top.bilibililike.player.common.api;
 
 
 import java.util.HashMap;
-
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Api {
+    public static final String DOMAIN_HEADER = "domain";
+    public static final String BILI_HEADER = "bili";
     public static final String LOGIN_HOST = "https://passport.bilibili.com";
     public static final String APP_HOST = "https://app.bilibili.com";
     public static final String API_HOST = "https://api.bilibili.com";
@@ -21,7 +23,7 @@ public class Api {
     public static final String mobi_app = "android";
     public static final String platform = "android";
     public static final String statistics = "{\"appId\":1,\"platform\":3,\"version\":\"5.41.0\",\"abtest\":\"\"}";
-    private static HashMap<String,String> params ;
+    private static ConcurrentHashMap<String,String> params ;
     public static void initParams(){
         /*TokenBean.DataBean.TokenInfoBean tokenBean = null  ;
         try{
@@ -34,7 +36,7 @@ public class Api {
         if (params != null){
             params.clear();
         }else {
-            params = new HashMap<>();
+            params = new ConcurrentHashMap<String,String>();
         }
 
       /*  if (tokenBean != null && tokenBean.getAccess_token() != null){
@@ -51,7 +53,7 @@ public class Api {
         params.put("statistics",statistics);
         params.put("ts", String.valueOf(System.currentTimeMillis()).substring(0,10));
     }
-    public static HashMap<String,String> getParams(){
+    public static ConcurrentHashMap<String,String> getParams(){
         initParams();
         return params;
     }

@@ -1,6 +1,5 @@
 package top.bilibililike.player
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,35 +16,24 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import org.w3c.dom.Text
 import top.bilibililike.mvp.base.BaseFragment
 import top.bilibililike.mvp.ext.Toasts.toast
-import top.bilibililike.player.ui.live.subtitle.utils.ToastUtil
+import top.bilibililike.player.widget.live.subtitle.utils.ToastUtil
 import top.bilibililike.mvp.mvp.MVPActivity
-import top.bilibililike.player.common.Utils
 import top.bilibililike.player.supportClass.MyPagerAdapter
-import top.bilibililike.player.ui.antivirus.AntiVirusFragment
-import top.bilibililike.player.ui.bangumi.BangumiFragment
-import top.bilibililike.player.ui.hotspot.HotSpotFragment
-import top.bilibililike.player.ui.live.liveFragment.*
-import top.bilibililike.player.ui.recommend.RecommendFragment
-import top.bilibililike.player.ui.video.VideoFragment
-import androidx.core.view.MarginLayoutParamsCompat.setMarginEnd
-import androidx.core.view.MarginLayoutParamsCompat.setMarginStart
-import android.os.Build
-import android.widget.LinearLayout
-import java.lang.reflect.AccessibleObject.setAccessible
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import java.lang.reflect.Field
+import top.bilibililike.player.widget.antivirus.ui.AntiVirusFragment
+import top.bilibililike.player.widget.bangumi.BangumiFragment
+import top.bilibililike.player.widget.hotspot.HotSpotFragment
+import top.bilibililike.player.widget.live.liveFragment.*
+import top.bilibililike.player.widget.recommend.RecommendFragment
+import top.bilibililike.player.widget.video.VideoFragment
+
 
 
 class MainActivity : MVPActivity<LiveContract.ILivePresenter>() {

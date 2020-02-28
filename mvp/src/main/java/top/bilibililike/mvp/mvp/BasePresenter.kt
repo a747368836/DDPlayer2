@@ -3,7 +3,7 @@ package top.bilibililike.mvp.mvp
 
 import androidx.annotation.StringRes
 import kotlinx.coroutines.*
-import top.bilibililike.mvp.bean.KResponse
+import top.bilibililike.mvp.bean.Response
 import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.showLog
 import top.bilibililike.mvp.ext.tryCatch
@@ -42,13 +42,13 @@ abstract class BasePresenter<V : BaseContract.View>(view: V) : BaseContract.Pres
     }
 
 
-    fun <R> KResponse<R>.execute(success: ((R?) -> Unit)?, error: ((String) -> Unit)? = null) {
+    fun <R> Response<R>.execute(success: ((R?) -> Unit)?, error: ((String) -> Unit)? = null) {
         if (this.isSuccess()) {
-            success?.invoke(this.getKData())
+            success?.invoke(this.getRawData())
             return
         }
 
-        error?.invoke(this.getKMessage()) ?: showError(this.getKMessage())
+        error?.invoke(this.getMessage()) ?: showError(this.getMessage())
     }
 
     override fun showError(msg: String) {
@@ -76,7 +76,7 @@ abstract class BasePresenter<V : BaseContract.View>(view: V) : BaseContract.Pres
         private var failBlock: ((String?) -> Unit)? = null
         private var exceptionBlock: ((Throwable?) -> Unit)? = null
 
-        fun request(block: suspend CoroutineScope.() -> KResponse<R>?) {
+        fun request(block: suspend CoroutineScope.() -> Response<R>?) {
             launchUI({ block()?.execute(successBlock, failBlock) }, exceptionBlock)
         }
 

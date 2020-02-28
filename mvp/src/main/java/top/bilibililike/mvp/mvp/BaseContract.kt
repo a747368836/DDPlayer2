@@ -3,11 +3,6 @@ package top.bilibililike.mvp.mvp
 import androidx.annotation.StringRes
 
 
-/**
- *  @author: hyzhan
- *  @date:   2019/5/16
- *  @desc:   基本契约类
- */
 
 interface BaseContract {
 

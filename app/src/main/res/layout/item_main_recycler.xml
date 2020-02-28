@@ -33,10 +33,39 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_50"
-            android:layout_alignBottom="@+id/coverImg">
+            android:layout_alignBottom="@+id/coverImg"
+            android:paddingBottom="@dimen/qb_px_2"
+            android:background="@drawable/gradient_black_shader"
+            >
 
+            <TextView
+                android:id="@+id/tv_plays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/qb_px_5"
+                android:drawableStart="@mipmap/ic_play_nums"
+                android:text="114万"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:drawablePadding="@dimen/qb_px_4"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
 
-
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/qb_px_5"
+                android:layout_toRightOf="@id/tv_plays"
+                android:drawableLeft="@mipmap/ic_danmuku_nums"
+                android:drawablePadding="@dimen/qb_px_4"
+                android:text="7216万"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_length"
@@ -44,9 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/qb_px_5"
+                android:layout_marginEnd="@dimen/qb_px_6"
                 android:text="5:33"
                 android:visibility="invisible"
+                tools:visibility="visible"
                 android:textColor="#ffffff"
                 android:textSize="12sp" />
 

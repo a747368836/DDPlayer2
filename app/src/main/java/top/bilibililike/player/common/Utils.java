@@ -15,5 +15,11 @@ public class Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,sp,Resources.getSystem().getDisplayMetrics());
     }
 
+    public static String dealNumber(int number){
+        if (number > 10000) return number/10000 + "万";
+
+        return number+"";
+    }
+
 
 }

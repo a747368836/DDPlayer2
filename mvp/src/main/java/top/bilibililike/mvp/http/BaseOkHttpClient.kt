@@ -18,6 +18,7 @@ object BaseOkHttpClient {
             interceptors.forEach { addInterceptor(it) }
 
             addInterceptor(LoggingIntercept.init())
+
             readTimeout(KtArmor.retrofit.readTimeOut, TimeUnit.SECONDS)
             writeTimeout(KtArmor.retrofit.writeTimeOut, TimeUnit.SECONDS)
             connectTimeout(KtArmor.retrofit.connectTimeOut, TimeUnit.SECONDS)
@@ -25,4 +26,5 @@ object BaseOkHttpClient {
             build()
         }
     }
+
 }
