@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<top.bilibililike.player.ui.live.subtitle.core.SubtitleView
+<top.bilibililike.player.widget.live.subtitle.core.SubtitleView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-</top.bilibililike.player.ui.live.subtitle.core.SubtitleView>
+</top.bilibililike.player.widget.live.subtitle.core.SubtitleView>

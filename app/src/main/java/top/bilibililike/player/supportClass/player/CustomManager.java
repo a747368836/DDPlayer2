@@ -28,6 +28,7 @@ import static com.shuyu.gsyvideoplayer.utils.CommonUtil.hideNavKey;
 
 public class CustomManager extends GSYVideoBaseManager {
 
+
     public static final int SMALL_ID = R.id.small_id;
 
     public static final int FULLSCREEN_ID = R.id.full_id;
@@ -186,4 +187,5 @@ public class CustomManager extends GSYVideoBaseManager {
         }
         return gsyVideoPlayer != null;
     }
+
 }

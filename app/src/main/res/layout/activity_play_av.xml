@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +29,7 @@
             <ImageView
                 android:id="@+id/imv_cover_pre"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/qb_px_220"
+                android:layout_height="wrap_content"
                 android:visibility="invisible"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9"
@@ -36,104 +37,73 @@
                 />
 
 
-            <top.bilibililike.player.customedView.videoView.MultiSampleVideo
+            <top.bilibililike.player.supportClass.player.MultiSampleVideo
                 android:id="@+id/audio_player"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="gone" />
 
 
-            <top.bilibililike.player.customedView.videoView.MultiSampleVideo
-                android:id="@+id/av_player"
+            <top.bilibililike.player.supportClass.player.MultiSampleVideo
+                android:id="@+id/video_player"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed" />
 
-           <!-- <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:collapseIcon="@mipmap/ic_back"
+            <!-- <androidx.appcompat.widget.Toolbar
+                 android:id="@+id/toolbar"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:collapseIcon="@mipmap/ic_back"
+                 app:layout_collapseMode="pin"
+                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                 app:title="@string/app_name"
+                 app:titleTextColor="#ffffff">-->
+
+            <RelativeLayout
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="@string/app_name"
-                app:titleTextColor="#ffffff">-->
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    app:layout_collapseMode="pin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tx_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="@dimen/qb_px_80"
-                        android:drawableStart="@drawable/ic_fab_play"
-                        android:drawablePadding="@dimen/qb_px_8"
-                        android:gravity="center"
-                        android:text="立即播放"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:visibility="invisible" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tx_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/qb_px_80"
+                    android:drawableStart="@drawable/ic_fab_play"
+                    android:drawablePadding="@dimen/qb_px_8"
+                    android:gravity="center"
+                    android:text="立即播放"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
 
 
-          <!--  </androidx.appcompat.widget.Toolbar>-->
+            <!--  </androidx.appcompat.widget.Toolbar>-->
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/qb_px_40"
-            android:orientation="horizontal"
-            app:layout_collapseMode="parallax"
-            app:layout_scrollFlags="enterAlways">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/qb_px_40"
-                android:layout_weight="0.6"
-                android:background="#ffffff"
-                app:layout_scrollFlags="enterAlways"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="@dimen/qb_px_2"
-                app:tabMaxWidth="@dimen/qb_px_500"
-                app:tabMinWidth="@dimen/qb_px_40"
-                app:tabPaddingEnd="@dimen/qb_px_40"
-                app:tabPaddingStart="@dimen/qb_px_40"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextAppearance="@style/tabText">
-
-            </com.google.android.material.tabs.TabLayout>
-
-            <TextView
-                android:id="@+id/danmu_view"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:gravity="center"
-                android:text="点击发送弹幕"
-                android:textColor="#ffffff"
-                android:textSize="14sp" />
-        </LinearLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
-        />
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdafeognewonvowehgnowehnguorhgor"
+            android:textSize="132sp"
+            >
+        </TextView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

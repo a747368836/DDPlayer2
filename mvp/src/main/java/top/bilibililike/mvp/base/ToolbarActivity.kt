@@ -5,11 +5,6 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import top.bilibililike.mvp.R
 
-/**
- *  @author:  hyzhan
- *  @date:    2019/7/23
- *  @desc:    需要为 Toolbar 控件设置id 为 toolbar
- */
 abstract class ToolbarActivity : BaseActivity() {
 
     var toolbarTitle: String = ""

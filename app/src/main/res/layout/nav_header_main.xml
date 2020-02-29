@@ -7,10 +7,11 @@
     android:layout_height="@dimen/qb_px_180"
     android:background="@color/colorPrimary"
     android:gravity="bottom"
+    android:fitsSystemWindows="true"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/ivAvatar"
         android:layout_width="@dimen/qb_px_48"
         android:layout_height="@dimen/qb_px_48"
         android:layout_marginStart="@dimen/qb_px_16"
@@ -27,8 +28,8 @@
         android:text="点击头像登录"
         android:textColor="#ffffff"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@id/iv_avatar"
-        app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+        app:layout_constraintLeft_toLeftOf="@id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
 
     <ImageView
         android:id="@+id/small_tv_cry"

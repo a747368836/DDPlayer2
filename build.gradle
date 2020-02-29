@@ -3,6 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.3.50'
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url "https://jitpack.io" }
         google()
         jcenter()
@@ -18,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url "https://jitpack.io" }
         google()
         jcenter()
@@ -30,6 +32,7 @@ task clean(type: Delete) {
 }
 
 ext {
+    roomVersion = '2.2.4'
     retrofit_version = "2.7.0"
     rxJava_version = "2.2.17"
     rxAndroid_version = "2.1.1"
