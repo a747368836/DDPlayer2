@@ -1,9 +1,6 @@
-package top.bilibililike.player.common.bean.dao
+package top.bilibililike.player.common.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import top.bilibililike.player.common.bean.userInfo.*
 
 /**
@@ -17,11 +14,11 @@ interface UserInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveToken(vararg element:Data)
 
-    @Query("SELECT * from USERINFO_CLASS LIMIT 1")
-    suspend fun getUserObject():Data
+    @Update
+    suspend fun update(element:Data)
 
     @Query("SELECT * from USERINFO_CLASS LIMIT 1")
-    fun getUserObjectAsyc():Data
+    suspend fun getUserObject():Data
 
     @Query("SELECT name from USERINFO_CLASS LIMIT 1")
     suspend fun getNickName():String

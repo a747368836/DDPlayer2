@@ -1,4 +1,4 @@
-package top.bilibililike.player.common.bean.dao
+package top.bilibililike.player.common.dao
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -11,13 +11,8 @@ import top.bilibililike.player.common.bean.userInfo.Data
  *  Describe:
  */
 @Database(entities = [TokenInfo::class, Data::class], version = 1)
-abstract class TokenDataBase : RoomDatabase() {
+abstract class UserDataBase : RoomDatabase() {
     abstract fun getTokenDao(): TokenDao
 
-    abstract fun getUserInfoDao(): UserInfoDao
-}
-
-@Database(entities = [Data::class], version = 1)
-abstract class UserDataBase : RoomDatabase() {
     abstract fun getUserInfoDao(): UserInfoDao
 }

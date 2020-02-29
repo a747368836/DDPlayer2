@@ -24,7 +24,9 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import top.bilibililike.mvp.base.BaseFragment
+import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.Toasts.toast
 import top.bilibililike.player.widget.live.subtitle.utils.ToastUtil
 import top.bilibililike.mvp.mvp.MVPActivity
@@ -38,6 +40,7 @@ import top.bilibililike.player.widget.live.liveFragment.*
 import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
 import top.bilibililike.player.widget.video.VideoFragment
+import kotlin.Exception as Exception1
 
 
 class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
@@ -45,6 +48,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
     override fun showUserInfo(dataBean: Data) {
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
         Glide.with(this).load(dataBean.face).into(avatarView)
+        Glide.with(this).load(dataBean.face).into(imv_avatar)
         val nickname = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_nickname)
         nickname.setText(dataBean.name)
         val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
@@ -53,7 +57,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var navController: NavController? = null
+    //private var navController: NavController? = null
 
     override fun bindPresenter(): MainContract.Presenter = MainPresenter(this)
 
@@ -69,11 +73,11 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
     override fun initView() {
         //init toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        /*val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)*/
 
 
-        val navController = findNavController(R.id.navHostFragment)
+
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
         val viewPager: ViewPager = findViewById(R.id.viewPager)
         val fragmentList = ArrayList<BaseFragment>()
@@ -170,8 +174,8 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
                 R.id.nav_send
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+        //navView.setupWithNavController(navController)
         val intent = Intent(applicationContext, LoginActivity::class.java)
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
         avatarView?.setOnClickListener { startActivity(intent) }
@@ -187,19 +191,26 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         presenter.loadUserInfo()
     }
 
+    private fun checkReadAndWritePermission():Boolean{
+        val permissions: Array<String> = arrayOf(
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+        )
+        var permission = ActivityCompat.checkSelfPermission(this, permissions[0])
+        permission = permission and ActivityCompat.checkSelfPermission(this, permissions[1])
+        return permission == PackageManager.PERMISSION_GRANTED
+    }
     private fun requestReadAndWrite() {
         val permissions: Array<String> = arrayOf(
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"
         )
-        try {
-            var permission = ActivityCompat.checkSelfPermission(this, permissions[0])
-            permission = permission and ActivityCompat.checkSelfPermission(this, permissions[1])
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, permissions, 1)
-            }
 
-        } catch (e: java.lang.Exception) {
+        try {
+            if (checkReadAndWritePermission()) {
+                ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE)
+            }
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -226,7 +237,8 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         fun requestAlertWindowPermission() {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             intent.data = Uri.parse("package:" + packageName)
-            startActivityForResult(intent,
+            startActivityForResult(
+                intent,
                 REQUEST_CODE
             )
         }
@@ -237,31 +249,34 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
     }
 
-    //处理回调
+    //处理权限申请回调
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE) {
             if (!Settings.canDrawOverlays(this)) {
-                ToastUtil.show("请通过悬浮窗权限申请！")
+                toast("请通过悬浮窗权限申请！")
                 requestDrawOverlays()
-            } else {
-                toast("请通过存储权限")
             }
+            if (!checkReadAndWritePermission()){
+                toast("请通过读写磁盘权限申请！")
+                requestReadAndWrite()
+            }
+
 
         }
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
-    }
+    }*/
 
-    override fun onSupportNavigateUp(): Boolean {
+    /*override fun onSupportNavigateUp(): Boolean {
         navController = findNavController(R.id.navHostFragment)
         return navController!!.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+    }*/
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -272,4 +287,15 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val str = intent?.getStringExtra(Const.INTENT_EVENT)
+        if (str != null && str == Const.LOGIN_SUCCESS) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            presenter.loadUserInfo()
+        }
+    }
 }

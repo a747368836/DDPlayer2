@@ -1,15 +1,13 @@
 package top.bilibililike.player.common.sign
 
+import top.bilibililike.player.widget.live.subtitle.utils.Api
 import java.math.BigInteger
 import java.security.MessageDigest
 
 
-class Signer {
-
-    companion object{
-        val APP_SECRET = "560c52ccd288fed045859ed18bffd973"
+object Signer {
         fun getSign(content:String) : String{
-            return getMD5(content + APP_SECRET)
+            return getMD5(content + Api.APP_SECRET)
         }
         private fun getMD5(str: String): String {
             //Log.d("LoginModel md5Str = ",str);
@@ -27,7 +25,7 @@ class Signer {
             }
             return ""
         }
-    }
+
 
 
 }

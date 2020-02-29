@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import top.bilibililike.mvp.DDComponent
 
-import top.bilibililike.player.common.api.MyRetrofitConfig
+import top.bilibililike.player.common.apiConfig.MyRetrofitConfig
 
 
 class MyApp : Application() {

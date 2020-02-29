@@ -2,13 +2,11 @@ package top.bilibililike.player.widget.login
 
 import android.util.Base64
 import android.util.Log
-import androidx.room.Room
 import top.bilibililike.mvp.mvp.BaseModel
-import top.bilibililike.player.common.MyApp
 import top.bilibililike.player.common.bean.BaseResponse
-import top.bilibililike.player.common.bean.dao.TokenDataBase
 import top.bilibililike.player.common.bean.login.Data
 import top.bilibililike.player.common.bean.login.token.TokenInfo
+import top.bilibililike.player.common.dao.userDataBase
 import top.bilibililike.player.common.http.ApiManager
 import java.net.URLEncoder
 import java.security.KeyFactory
@@ -77,15 +75,12 @@ object LoginModel : BaseModel() {
 
     suspend fun saveTokenData(tokenBean: TokenInfo){
         launchIO{
-            val tokenDao = tokenDataBase.getTokenDao()
+            val tokenDao = userDataBase.getTokenDao()
             tokenDao.saveToken(tokenBean)
         }
     }
 
-    //mode = LazyThreadSafetyMode.SYNCHRONIZED
-    val tokenDataBase: TokenDataBase by lazy() {
-        Room.databaseBuilder(MyApp.mContext, TokenDataBase::class.java, "token").allowMainThreadQueries().build()
-    }
+
 
 
 }

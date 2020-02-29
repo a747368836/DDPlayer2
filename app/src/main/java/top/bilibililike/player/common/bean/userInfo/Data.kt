@@ -8,23 +8,26 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "userInfo_class")
 data class Data(
     @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id : Int = 1,
+
     @ColumnInfo(name = "mid")
-    val mid: Int,
+    var mid: Int,
 
     @ColumnInfo(name = "level")
-    val level: Int,
+    var level: Int,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "sign")
-    val sign: String,
+    var sign: String,
     @ColumnInfo(name = "face")
-    val face: String,
+    var face: String,
     @ColumnInfo(name = "coins")
-    val coins: Double
+    var coins: Double,
 
-   /* @Ignore
+    @Ignore
     val birthday: String,
 
     @Ignore
@@ -33,13 +36,13 @@ data class Data(
     @Ignore
     val identification: Int,
     @Ignore
-    val invite: Invite,
+    val invite: Invite?,
     @Ignore
     val is_tourist: Int,
     @Ignore
-    val official: Official,
+    val official: Official?,
     @Ignore
-    val pendant: Pendant,
+    val pendant: Pendant?,
     @Ignore
     val pin_prompting: Int,
     @Ignore
@@ -51,5 +54,9 @@ data class Data(
     @Ignore
     val tel_status: Int,
     @Ignore
-    val vip: Vip*/
-)
+    val vip: Vip?
+) {
+    constructor() : this(1,0, 0, "", "", "", 0.0,
+        "", 0,0,null,0,null,
+        null,0,0,0,0,0,null)
+}

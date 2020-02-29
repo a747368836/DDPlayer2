@@ -1,4 +1,4 @@
-package top.bilibililike.player.common.api
+package top.bilibililike.player.common.apiConfig
 
 
 import okhttp3.OkHttpClient
@@ -11,7 +11,7 @@ import top.bilibililike.player.common.http.interceptors.BiliPostInterceptor
 
 class MyRetrofitConfig : BaseRetrofitConfig() {
     override val baseUrl: String
-        get() = Api.API_HOST
+        get() = Api.APP_HOST
 
 
 

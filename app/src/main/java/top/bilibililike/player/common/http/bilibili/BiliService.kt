@@ -2,7 +2,7 @@ package top.bilibililike.player.common.http.bilibili
 
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
-import top.bilibililike.player.common.api.Api
+import top.bilibililike.player.common.apiConfig.Api
 import top.bilibililike.player.common.bean.BaseResponse
 import top.bilibililike.player.common.bean.recommend.Data
 
@@ -21,7 +21,7 @@ interface BiliService {
      * @param column 首页recyclerview分几栏 B站客户端内有设置
      */
     @GET("https://app.bilibili.com/x/v2/feed/index")
-    @Headers("{${Api.DOMAIN_HEADER}: app.{${Api.BILI_HEADER}}")
+    @Headers("${Api.DOMAIN_HEADER}: app.${Api.BILI_HEADER}")
     fun getRecommendList(
         @Query("pull") isRefresh: Boolean
         , @Query("column") column: Int = 2

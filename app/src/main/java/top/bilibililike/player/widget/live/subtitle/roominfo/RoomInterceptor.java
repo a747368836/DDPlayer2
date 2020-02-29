@@ -47,7 +47,6 @@ public class RoomInterceptor implements Interceptor {
         httpUrl.queryParameterNames();
         List<String> queryNames = new ArrayList<>(httpUrl.queryParameterNames());
         for (String param : queryNames) {
-            Log.d("GetInterceptor", param);
             paramMap.put(param, httpUrl.queryParameterValues(param).get(0));
         }
         List<String> paramNames = new ArrayList<>(paramMap.keySet());
@@ -66,7 +65,6 @@ public class RoomInterceptor implements Interceptor {
         //Log.d("GetInterceptor sign", signBuilder.toString());
         builder.addQueryParameter("sign", MD5Util.getMD5(signBuilder.toString()));
         httpUrl = builder.build();
-        Log.d("GetInterceptor", httpUrl.toString());
         request = request.newBuilder().url(httpUrl).build();
 
 

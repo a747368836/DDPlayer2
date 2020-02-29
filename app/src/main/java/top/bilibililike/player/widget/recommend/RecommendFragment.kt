@@ -1,5 +1,6 @@
 package top.bilibililike.player.widget.recommend
 
+import android.content.Intent
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import top.bilibililike.mvp.mvp.MVPFragment
 import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.recommend.Data
 import top.bilibililike.player.common.bean.recommend.Item
+import top.bilibililike.player.widget.player.playav.PlayAvActivity
 
 
 class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendContract.View {
@@ -40,13 +42,7 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         toast(msg)
     }
 
-    override fun showLoading() {
 
-    }
-
-    override fun hideLoading() {
-
-    }
 
     var adapter: RecommendListAdapter? = null
 
@@ -71,7 +67,9 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         adapter?.animationEnable = true
         adapter?.setOnItemClickListener { adapter, view, position ->
             val item = adapter.data.get(position) as Item
-            toast("点击了{${item.title}}}")
+            val intent = Intent(activity,PlayAvActivity::class.java)
+            intent.putExtra("PLAY_AV",item.param)
+            startActivity(intent)
         }
         refreshLayout.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
         refreshLayout.setOnRefreshListener { mPresenter.loadRecommendList(true) }

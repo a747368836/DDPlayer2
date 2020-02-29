@@ -1,7 +1,6 @@
 package top.bilibililike.player.common.http.interceptors
 
 
-import okhttp3.FormBody
 import okhttp3.HttpUrl
 
 import java.net.URLEncoder
@@ -11,7 +10,7 @@ import java.util.HashMap
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import top.bilibililike.player.common.api.Api
+import top.bilibililike.player.common.apiConfig.Api
 import top.bilibililike.player.common.sign.Signer
 
 

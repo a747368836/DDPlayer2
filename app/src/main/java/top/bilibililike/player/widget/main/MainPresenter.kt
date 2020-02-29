@@ -1,7 +1,7 @@
 package top.bilibililike.player.widget.main
 
 import top.bilibililike.mvp.mvp.BasePresenter
-import top.bilibililike.player.common.bean.userInfo.Data
+import top.bilibililike.player.common.dao.userDataBase
 
 
 /**
@@ -12,13 +12,15 @@ import top.bilibililike.player.common.bean.userInfo.Data
 
 class MainPresenter(view: MainContract.View) : BasePresenter<MainContract.View>(view), MainContract.Presenter {
     override fun loadUserInfo() {
-        if(MainModel.getCacheInfo() != null){
-            view?.showUserInfo(MainModel.getCacheInfo()!!)
-        }
         launchUI({
+            val cache = MainModel.getCacheInfo()
+            if (cache != null){
+                view?.showUserInfo(cache)
+            }
             val response = MainModel.getUserInfo()
             if (response.isSuccess()){
                 view?.showUserInfo(response.getRawData()!!)
+                userDataBase.getUserInfoDao().saveToken(response.getRawData()!!)
             }
 
         })
