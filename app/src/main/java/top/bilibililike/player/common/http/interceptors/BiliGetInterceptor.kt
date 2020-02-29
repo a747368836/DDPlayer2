@@ -35,15 +35,21 @@ class BiliGetInterceptor : Interceptor {
 
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        var isVideo : Boolean = false
         var request = chain.request()
         val headerStr = request.header(Api.DOMAIN_HEADER)
-        if (headerStr != null && !headerStr.contains(Api.BILI_HEADER)) {
+        if (headerStr == null || !headerStr.contains(Api.BILI_HEADER)) {
             //header 中 有domainn 但是不是bili 直接返回
             return chain.proceed(request)
         }
+        if (headerStr.contains("video")) isVideo = true
         fun dealWithGet() {
             //获取统计参数 并重组url + 签名
-            val paramMap = HashMap(Api.getParams())
+            val paramMap: HashMap<String, String>
+            if (isVideo) {
+                paramMap = HashMap(Api.getVideoParams())
+            } else {paramMap = HashMap(Api.getParams())}
+
             if (this.paramMap != null) {
                 paramMap.putAll(this.paramMap!!)
             }
@@ -75,7 +81,7 @@ class BiliGetInterceptor : Interceptor {
                     signBuilder.append("&")
                 }
             }
-            builder.addQueryParameter("sign", Signer.getSign(signBuilder.toString()))
+            builder.addQueryParameter("sign", Signer.getSign(signBuilder.toString(),isVideo))
             httpUrl = builder.build()
             request = request.newBuilder().url(httpUrl).build()
         }

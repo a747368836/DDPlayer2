@@ -84,6 +84,8 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
         };
     }
 
+
+
     @Override
     public GSYVideoViewBridge getGSYVideoManager() {
         CustomManager.getCustomManager(getKey()).initContext(getContext().getApplicationContext());
@@ -164,8 +166,13 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
         if (stateListener != null) {
             stateListener.onSetup();
         }
-
         return super.setUp(url, cacheWithPlay, cachePath, title);
+    }
+
+    @Override
+    public void startPlayLogic() {
+        super.startPlayLogic();
+
     }
 
     @Override

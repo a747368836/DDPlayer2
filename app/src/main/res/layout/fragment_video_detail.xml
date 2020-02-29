@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/qb_px_40"
+    android:orientation="horizontal"
+    app:layout_collapseMode="parallax"
+    app:layout_scrollFlags="enterAlways">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/qb_px_40"
+        android:layout_weight="0.6"
+        android:background="#ffffff"
+        app:layout_scrollFlags="enterAlways"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="@dimen/qb_px_2"
+        app:tabMaxWidth="@dimen/qb_px_500"
+        app:tabMinWidth="@dimen/qb_px_40"
+        app:tabPaddingEnd="@dimen/qb_px_40"
+        app:tabPaddingStart="@dimen/qb_px_40"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/tabText">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <TextView
+        android:id="@+id/danmu_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:gravity="center"
+        android:text="点击发送弹幕"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+</LinearLayout>

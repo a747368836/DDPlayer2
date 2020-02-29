@@ -4,6 +4,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.http.*
 import top.bilibililike.player.common.apiConfig.Api
 import top.bilibililike.player.common.bean.BaseResponse
+import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.recommend.Data
 
 
@@ -57,4 +58,20 @@ interface BiliService {
     @GET("https://app.bilibili.com/x/v2/account/myinfo")
     @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
     fun loadUserInfo():Deferred<BaseResponse<top.bilibililike.player.common.bean.userInfo.Data>>
+
+    @GET("https://app.bilibili.com/x/playurl")
+    @Headers("${Api.DOMAIN_HEADER}:app.video.${Api.BILI_HEADER}")
+    fun getVideoUrl(
+        @Query("aid") aid:String,
+        @Query("cid") cid:String,
+        @Query("qn") qn:String
+    ):Deferred<BaseResponse<top.bilibililike.player.common.bean.avUrl.Data>>
+
+
+    @GET("https://app.bilibili.com/x/v2/view")
+    @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
+    fun getVideoDetail(@Query("aid")aid:String):Deferred<BaseResponse<AvDescriptionBean.DataBean>>
+
+
+
 }

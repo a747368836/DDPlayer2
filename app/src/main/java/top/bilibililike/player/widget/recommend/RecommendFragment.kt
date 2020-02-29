@@ -1,29 +1,26 @@
 package top.bilibililike.player.widget.recommend
 
 import android.content.Intent
-import android.text.Layout
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import kotlinx.android.synthetic.main.fragment_recommend.*
+import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.Toasts.toast
 import top.bilibililike.mvp.mvp.MVPFragment
 import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.recommend.Data
 import top.bilibililike.player.common.bean.recommend.Item
-import top.bilibililike.player.widget.player.playav.PlayAvActivity
+import top.bilibililike.player.widget.player.PlayerActivity
 
 
 class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendContract.View {
     override fun loadMoreListSuccess(response: Data) {
         val datas = response.items
-        for (data in datas) {
+        val dataArrayList = ArrayList(datas)
+        val resultDatas = ArrayList<Item>()
+        dataArrayList.forEach({
+            item -> if (!item.card_goto.contains("ad") ) resultDatas.add(item)
+        })
+        for (data in resultDatas) {
             adapter?.addData(data)
         }
         adapter?.loadMoreModule?.loadMoreComplete()
@@ -67,8 +64,25 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         adapter?.animationEnable = true
         adapter?.setOnItemClickListener { adapter, view, position ->
             val item = adapter.data.get(position) as Item
-            val intent = Intent(activity,PlayAvActivity::class.java)
-            intent.putExtra("PLAY_AV",item.param)
+            val intent = Intent()
+            if (item.goto.contains("av")){
+                intent.setClass(context!!, PlayerActivity::class.java)
+                intent.putExtra(Const.INTENT_VIDEO_AV,item.param)
+            }
+            else if (item.goto.contains("live")){
+                //roomId
+                intent.setClass(context!!, PlayerActivity::class.java)
+                intent.putExtra(Const.INTENT_VIDEO_LIVE,item.param)
+            }else if (item.goto.contains("article")){
+                //4791917这是啥
+                intent.putExtra(Const.INTENT_VIDEO_ARTICLE,item.param)
+                intent.setClass(context!!, PlayerActivity::class.java)
+            }else if (item.goto.contains("bangumi")){
+                //ep
+                intent.setClass(context!!, PlayerActivity::class.java)
+                intent.putExtra(Const.INTENT_VIDEO_BANGUMI,item.param)
+            }
+
             startActivity(intent)
         }
         refreshLayout.setColorSchemeColors(resources.getColor(R.color.colorPrimary))

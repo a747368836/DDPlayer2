@@ -1,12 +1,14 @@
 package top.bilibililike.player.common.sign
 
-import top.bilibililike.player.widget.live.subtitle.utils.Api
+
+import top.bilibililike.player.common.apiConfig.Api
 import java.math.BigInteger
 import java.security.MessageDigest
 
 
 object Signer {
-        fun getSign(content:String) : String{
+        fun getSign(content:String,isVideo:Boolean = false) : String{
+            if (isVideo) return getMD5(content + Api.VIDEO_SECRET)
             return getMD5(content + Api.APP_SECRET)
         }
         private fun getMD5(str: String): String {

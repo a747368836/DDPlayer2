@@ -14,4 +14,10 @@ object Const {
     const val EVENT_LOGIN = "LOGIN"
 
     const val INTENT_EVENT = "INTENT_EVENT"
+
+    const val INTENT_VIDEO_AV = "VIDEO_AV"
+
+    const val INTENT_VIDEO_LIVE = "VIDEO_LIVE"
+    const val INTENT_VIDEO_BANGUMI = "VIDEO_BANGUMI"
+    const val INTENT_VIDEO_ARTICLE = "VIDEO_ARTICLE"
 }
