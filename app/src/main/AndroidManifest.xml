@@ -44,6 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar"
 
             />
+        <activity android:name=".widget.search.SearchActivity"/>
     </application>
 
 </manifest>
