@@ -7,6 +7,7 @@ import top.bilibililike.player.common.bean.BaseResponse
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 import top.bilibililike.player.common.bean.recommend.Data
+import top.bilibililike.player.common.bean.search.SearchResultBean
 
 
 /**
@@ -95,5 +96,16 @@ interface BiliService {
         @Query("qn")qn:Int = 10000,
         @Query("unicom_free") free:Int = 0
     ):Deferred<BaseResponse<LivePlayUrlBean.DataBean>>
+
+
+    /**
+     *
+     */
+    @GET("https://app.bilibili.com/x/v2/search")
+    @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
+    fun getSearchResult(
+        @Query("keyword")keyword:String
+    ):Deferred<BaseResponse<SearchResultBean.DataBean>>
+
 
 }

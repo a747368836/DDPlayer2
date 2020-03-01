@@ -40,6 +40,7 @@ import top.bilibililike.player.widget.hotspot.HotSpotFragment
 import top.bilibililike.player.widget.live.liveFragment.*
 import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
+import top.bilibililike.player.widget.search.SearchActivity
 import top.bilibililike.player.widget.video.VideoFragment
 import kotlin.Exception as Exception1
 
@@ -180,10 +181,12 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
                 R.id.nav_send
             ), drawerLayout
         )
+
         val intent = Intent(applicationContext, LoginActivity::class.java)
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
         avatarView?.setOnClickListener { startActivity(intent) }
 
+        imv_search.setOnClickListener{startActivity(Intent(applicationContext,SearchActivity::class.java))}
 
         requestDrawOverlays()
 

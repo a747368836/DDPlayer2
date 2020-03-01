@@ -12,6 +12,7 @@ import top.bilibililike.mvp.mvp.BasePresenter
 
 class LoginPresenter(view: LoginContract.View) : BasePresenter<LoginContract.View>(view),
     LoginContract.Presenter {
+
     override fun login(username: String, password: String) {
         launchUI({
             showLoading()
@@ -36,5 +37,7 @@ class LoginPresenter(view: LoginContract.View) : BasePresenter<LoginContract.Vie
             }
         })
     }
+
+
 
 }

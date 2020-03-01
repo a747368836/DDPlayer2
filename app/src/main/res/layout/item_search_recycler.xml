@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/qb_px_188"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/item_liner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/qb_px_12"
+            android:paddingTop="@dimen/qb_px_12"
+            android:paddingEnd="@dimen/qb_px_12"
+            android:paddingBottom="@dimen/qb_px_12">
+
+            <ImageView
+                android:id="@+id/imv_cover"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:paddingLeft="@dimen/qb_px_12">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="欢 迎 来 到 实 力 至 上 主 义 的 教 室"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/qb_px_5"
+                    android:text="2008 | 番剧 | 日本"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tx_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_detail"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/qb_px_5"
+                    android:text="少女/校园/治愈/催泪/小说改/"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txv_goto_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="立即观看"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/txv_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/qb_px_16"
+                    android:layout_toEndOf="@id/txv_goto_play"
+                    android:text="追番"
+                    android:textColor="@color/colorPrimary" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:paddingTop="@dimen/qb_px_12">
+
+                <TextView
+                    android:id="@+id/txv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="9.8"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/txv_score"
+                    android:paddingTop="8sp"
+                    android:text="分"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txv_people"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txv_score"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/qb_px_12"
+                    android:text="2万人"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:paddingStart="@dimen/qb_px_12"
+            android:paddingTop="@dimen/qb_px_12"
+            android:paddingEnd="@dimen/qb_px_12"
+            android:paddingBottom="@dimen/qb_px_12">
+
+            <TextView
+                android:id="@+id/txv_cid1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1"
+
+                />
+
+            <TextView
+                android:id="@+id/txv_cid2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/txv_cid3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="..." />
+
+            <TextView
+                android:id="@+id/txv_cid4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="23" />
+
+            <TextView
+                android:id="@+id/txv_cid5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="24" />
+
+            <TextView
+                android:id="@+id/txv_cid6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="25" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
