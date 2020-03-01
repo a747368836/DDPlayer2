@@ -10,4 +10,6 @@ interface Response<T> {
     fun getRawData(): T?
 
     fun getTs():Int?
+
+    fun getCode():Int?
 }

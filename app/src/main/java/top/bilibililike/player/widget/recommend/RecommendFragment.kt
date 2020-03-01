@@ -14,12 +14,13 @@ import top.bilibililike.player.widget.player.PlayerActivity
 
 class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendContract.View {
     override fun loadMoreListSuccess(response: Data) {
-        val datas = response.items
-        val dataArrayList = ArrayList(datas)
+        val dataArrayList = ArrayList(response.items)
         val resultDatas = ArrayList<Item>()
-        dataArrayList.forEach({
-            item -> if (!item.card_goto.contains("ad") ) resultDatas.add(item)
-        })
+        dataArrayList.forEach {
+                item -> resultDatas.add(item).takeIf {
+                !item.card_goto.contains("ad",true)
+                    && !item.card_goto.contains("special",true) }
+        }
         for (data in resultDatas) {
             adapter?.addData(data)
         }

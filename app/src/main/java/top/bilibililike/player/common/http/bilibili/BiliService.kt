@@ -54,11 +54,16 @@ interface BiliService {
     ):Deferred<BaseResponse<top.bilibililike.player.common.bean.login.token.Data>>
 
 
-
+    /**
+     * 获取用户信息详情
+     */
     @GET("https://app.bilibili.com/x/v2/account/myinfo")
     @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
     fun loadUserInfo():Deferred<BaseResponse<top.bilibililike.player.common.bean.userInfo.Data>>
 
+    /**
+     * 获取av类型视频的真实播放地址
+     */
     @GET("https://app.bilibili.com/x/playurl")
     @Headers("${Api.DOMAIN_HEADER}:app.video.${Api.BILI_HEADER}")
     fun getVideoUrl(
@@ -68,6 +73,9 @@ interface BiliService {
     ):Deferred<BaseResponse<top.bilibililike.player.common.bean.avUrl.Data>>
 
 
+    /**
+     * 获取视频视频的详细资料
+     */
     @GET("https://app.bilibili.com/x/v2/view")
     @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
     fun getVideoDetail(@Query("aid")aid:String):Deferred<BaseResponse<AvDescriptionBean.DataBean>>

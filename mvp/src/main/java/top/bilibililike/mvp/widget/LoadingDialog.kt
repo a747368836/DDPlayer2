@@ -52,7 +52,9 @@ class LoadingDialog : DialogFragment() {
     }
 
     fun show() {
-        this.show(manager, dialogTag)
+        if (this.fragmentManager?.findFragmentByTag(dialogTag) == null){
+            this.show(manager, dialogTag)
+        }
     }
 
     fun hide() {
