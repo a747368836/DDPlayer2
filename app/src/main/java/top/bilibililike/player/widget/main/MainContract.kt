@@ -13,7 +13,7 @@ import top.bilibililike.player.common.bean.userInfo.Data
 interface MainContract {
 
     interface View : BaseContract.View{
-        fun showUserInfo(dataBean:Data)
+        fun showUserInfo(dataBean:Data?)
     }
 
     interface Presenter : BaseContract.Presenter {

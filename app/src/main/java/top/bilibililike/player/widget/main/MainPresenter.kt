@@ -10,15 +10,18 @@ import top.bilibililike.player.common.dao.userDataBase
  *  @desc:   TODO
  */
 
-class MainPresenter(view: MainContract.View) : BasePresenter<MainContract.View>(view), MainContract.Presenter {
+class MainPresenter(view: MainContract.View) : BasePresenter<MainContract.View>(view),
+    MainContract.Presenter {
+
+
     override fun loadUserInfo() {
         launchUI({
             val cache = MainModel.getCacheInfo()
-            if (cache != null){
+            if (cache != null) {
                 view?.showUserInfo(cache)
             }
             val response = MainModel.getUserInfo()
-            if (response.isSuccess()){
+            if (response.isSuccess()) {
                 view?.showUserInfo(response.getRawData()!!)
                 userDataBase.getUserInfoDao().saveToken(response.getRawData()!!)
             }

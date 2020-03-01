@@ -23,6 +23,7 @@ import moe.codeest.enviews.ENPlayView.STATE_PAUSE
 import top.bilibililike.mvp.constant.Const
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.avUrl.Data
+import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 
 import top.bilibililike.player.common.utilkit.AppBarStateChangeListener
 import top.bilibililike.player.supportClass.player.IPlayerStateListener
@@ -42,6 +43,8 @@ import kotlin.math.absoluteValue
 class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     PlayerContract.View {
 
+    //av live bangumi
+    var playerType = "av"
 
     override fun getVideoDetailSuccess(dataBean: AvDescriptionBean.DataBean) {
         Glide.with(this)
@@ -60,8 +63,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     }
 
 
-    override fun getLiveUrlSuccess() {
-
+    override fun getLiveUrlSuccess(liveUrlBean:LivePlayUrlBean.DataBean) {
+        loadPlayer(liveUrlBean.durl.get(0).url)
     }
 
     override fun getLayoutId(): Int {
@@ -101,7 +104,6 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             })
 
         }
-
         fun setPlayerScrollState(){
             if (video_player.currentState == CURRENT_STATE_PLAYING) {
                 params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
@@ -112,22 +114,13 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             //appbar_layout.isVerticalScrollBarEnabled = true
             collapsing_toolbar.layoutParams = params
         }
-
-        fun initPlayer() {
-
-            audio_player.tag = "audio"
+        fun initVideoPlayer(){
             video_player.tag = "video"
-
-
-            //video_player.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             video_player.playPosition = 0
-            audio_player.playPosition = 1
             val headerMap = HashMap<String, String>()
             headerMap.put("Accept", "*/*")
             headerMap.put("User-Agent", "Bilibili Freedoooooom/MarkII")
             video_player.mapHeadData = headerMap
-            audio_player.mapHeadData = headerMap
-            //audio_player.titleTextView.setText("这是一个用来测试能不能实时滚动的测试标题1234567890-=")
             video_player.isAutoFullWithSize = true
             video_player.isShowFullAnimation = true
             video_player.isShowFullAnimation = false
@@ -135,11 +128,17 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             video_player.setIsTouchWiget(true)
             video_player.setThumbPlay(true)
             video_player.seekRatio = 0.5f
+        }
+        fun initAudioPlayer(){
+            audio_player.tag = "audio"
+            audio_player.playPosition = 1
+            val headerMap = HashMap<String, String>()
+            headerMap.put("Accept", "*/*")
+            headerMap.put("User-Agent", "Bilibili Freedoooooom/MarkII")
 
-
-
-
-            //音画同步
+            audio_player.mapHeadData = headerMap
+        }
+        fun bindVideoAndAudio(){
             video_player.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
                 if (audio_player.currentState != CURRENT_STATE_PLAYING) {
                     audio_player.seekTo(currentPosition.toLong())
@@ -202,32 +201,40 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 }
 
             })
-
-
         }
-
+        fun dispatchVideoTask(){
+            val avStr = intent.getStringExtra(Const.INTENT_VIDEO_AV)
+            val liveRoomStr = intent.getStringExtra(Const.INTENT_VIDEO_LIVE)
+            val bangumiEpStr = intent.getStringExtra(Const.INTENT_VIDEO_BANGUMI)
+            val articleCvStr = intent.getStringExtra(Const.INTENT_VIDEO_ARTICLE)
+            if (avStr != null){
+                initAudioPlayer()
+                bindVideoAndAudio()
+                initAvData(avStr)
+            }else if (liveRoomStr != null){
+                initLiveData(liveRoomStr)
+            }else if (bangumiEpStr != null){
+                initBangumiData()
+            }
+        }
         initAppBar()
-        initPlayer()
-
+        initVideoPlayer()
+        dispatchVideoTask()
     }
 
-
-    override fun initData() {
-        val avStr = intent.getStringExtra(Const.INTENT_VIDEO_AV)
-        val liveRoomStr = intent.getStringExtra(Const.INTENT_VIDEO_LIVE)
-        val bangumiEpStr = intent.getStringExtra(Const.INTENT_VIDEO_BANGUMI)
-        val articleCvStr = intent.getStringExtra(Const.INTENT_VIDEO_ARTICLE)
-        if (avStr != null){
-            presenter.getVideoDetail(avStr)
-            Log.d("PlayerActivity","intent av = ${avStr}")
-        }else if (liveRoomStr != null){
-            presenter.getLiveUrl(liveRoomStr)
-        }else if (bangumiEpStr != null){
-            presenter.getBangumiPlayUrl()
-        }
-
-
+    fun initAvData(avString: String){
+        presenter.getVideoDetail(avString)
+        Log.d("PlayerActivity","intent av = ${avString}")
     }
+
+    fun initLiveData(liveRoomStr:String){
+        presenter.getLiveUrl(liveRoomStr)
+    }
+
+    fun initBangumiData(){
+        presenter.getBangumiPlayUrl()
+    }
+
 
     private fun loadPlayer(avUrl: String, audioUrl: String) {
         loadPlayer(avUrl)

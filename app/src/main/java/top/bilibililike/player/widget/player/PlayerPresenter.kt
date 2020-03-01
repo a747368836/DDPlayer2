@@ -56,7 +56,12 @@ class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.
     }
 
     override fun getLiveUrl(roomId: String) {
-
+        launchUI({
+            val response = PlayerModel.getLiveUrl(roomId)
+            if (response.isSuccess()){
+                view?.getLiveUrlSuccess(response.getRawData()!!)
+            }
+        })
     }
 
 }
