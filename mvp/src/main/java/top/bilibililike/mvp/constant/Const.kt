@@ -9,7 +9,7 @@ object Const {
 
     const val LOGIN_SUCCESS = "登陆成功！"
 
-    const val NETWORK_ERROR = "网络异常"
+    const val NETWORK_ERROR = "网络异常,请重试"
 
     const val EVENT_LOGIN = "LOGIN"
 

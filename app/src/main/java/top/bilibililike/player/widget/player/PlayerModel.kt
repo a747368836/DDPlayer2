@@ -24,4 +24,6 @@ object PlayerModel : BaseModel() {
             ApiManager.biliService.getVideoDetail(av).await()
         }
 
+
+
 }

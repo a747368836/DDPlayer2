@@ -18,6 +18,8 @@ class BaseResponse<T> : Response<T> {
 
     override fun isSuccess(): Boolean = code == 0
 
+    override fun getCode():Int = code;
+
     override fun getMessage(): String = message
 
     override fun getRawData(): T? = data

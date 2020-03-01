@@ -23,6 +23,8 @@ import top.bilibililike.player.common.bean.recommend.Item
 
 class RecommendListAdapter : BaseQuickAdapter<Item, BaseViewHolder>(R.layout.item_main_recycler,null),
     LoadMoreModule {
+
+
     override fun convert(helper: BaseViewHolder, item: Item) {
         helper.setText(R.id.tv_title,item.title)
             .setText(R.id.tv_up_nickname,item.args.up_name)

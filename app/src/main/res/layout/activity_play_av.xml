@@ -7,9 +7,7 @@
     android:orientation="vertical">
 
 
-    <include
-        layout="@layout/layout_player"/>
-
+    <include layout="@layout/layout_player" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/view_pager"

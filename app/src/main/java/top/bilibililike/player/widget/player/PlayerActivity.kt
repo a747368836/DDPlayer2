@@ -8,6 +8,7 @@ import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
 
 import android.view.View
+import com.bumptech.glide.Glide
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
@@ -16,6 +17,7 @@ import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 import top.bilibililike.player.supportClass.player.CustomManager
 import com.google.android.material.appbar.AppBarLayout
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoView.*
+import kotlinx.android.synthetic.main.layout_video_standard.*
 import kotlinx.android.synthetic.main.layout_video_standard.view.*
 import moe.codeest.enviews.ENPlayView.STATE_PAUSE
 import top.bilibililike.mvp.constant.Const
@@ -27,6 +29,9 @@ import top.bilibililike.player.supportClass.player.IPlayerStateListener
 import kotlin.math.absoluteValue
 
 
+
+
+
 /**
  *  @author: Xbs
  *  @date:   2020/02/29
@@ -36,7 +41,11 @@ import kotlin.math.absoluteValue
 
 class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     PlayerContract.View {
+
+
     override fun getVideoDetailSuccess(dataBean: AvDescriptionBean.DataBean) {
+        Glide.with(this)
+            .load(dataBean.pic).into(thumbImage)
         presenter.getAvPlayUrl(dataBean.aid.toString(),dataBean.cid.toString(),"32")
     }
 
@@ -55,7 +64,15 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
 
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_play_av
+    override fun getLayoutId(): Int {
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        return R.layout.activity_play_av
+    }
 
     override fun bindPresenter(): PlayerContract.Presenter =
         PlayerPresenter(this)
@@ -92,13 +109,16 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 params.scrollFlags =
                     AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
             }
-            appbar_layout.isVerticalScrollBarEnabled = true
+            //appbar_layout.isVerticalScrollBarEnabled = true
+            collapsing_toolbar.layoutParams = params
         }
 
         fun initPlayer() {
 
             audio_player.tag = "audio"
             video_player.tag = "video"
+
+
             //video_player.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             video_player.playPosition = 0
             audio_player.playPosition = 1
@@ -116,8 +136,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             video_player.setThumbPlay(true)
             video_player.seekRatio = 0.5f
 
-            //播放器滑动限制
-            setPlayerScrollState()
+
+
 
             //音画同步
             video_player.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
@@ -125,6 +145,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                     audio_player.seekTo(currentPosition.toLong())
                     if (audio_player.start.currentState == STATE_PAUSE) audio_player.start.performClick()
                 }
+                //播放器滑动限制
+                setPlayerScrollState()
                 val timeMinus = currentPosition - audio_player.currentPositionWhenPlaying
                 if (timeMinus.absoluteValue > 1000) audio_player.seekTo(currentPosition.toLong())
                 val rate = (timeMinus + 1000)/1000
@@ -167,19 +189,16 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                     audio_player.seekTo(target).takeIf { ifSeek }
                     audio_player.onVideoResume()
                     Log.d("PlayerActivity","StateListener onVideoResume")
-                    setPlayerScrollState()
                 }
 
                 override fun onStartBuffering() {
                     audio_player.onVideoPause()
                     Log.d("PlayerActivity","StateListener onStartBuffering")
-                    setPlayerScrollState()
                 }
 
                 override fun onSeekComplete(targetPosition: Long) {
                     audio_player.seekTo(targetPosition)
                     Log.d("PlayerActivity","StateListener onSeekComplete target =" + targetPosition)
-                    setPlayerScrollState()
                 }
 
             })
