@@ -1,6 +1,7 @@
 package top.bilibililike.player.widget.recommend
 
 import android.content.Intent
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import top.bilibililike.mvp.constant.Const
@@ -14,32 +15,30 @@ import top.bilibililike.player.widget.player.PlayerActivity
 
 class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendContract.View {
     override fun loadMoreListSuccess(response: Data) {
+        refreshLayout.takeIf { refreshLayout.isRefreshing }?.apply { isRefreshing = false }
         val dataArrayList = ArrayList(response.items)
         val resultDatas = ArrayList<Item>()
-        dataArrayList.forEach {
-                item -> resultDatas.add(item).takeIf {
-                !item.card_goto.contains("ad",true)
-                    && !item.card_goto.contains("special",true) }
-        }
+        dataArrayList.forEach { item -> resultDatas.takeIf { !item.card_goto.contains("_s") }?.apply { add(item) } }
         for (data in resultDatas) {
             adapter?.addData(data)
         }
-        adapter?.loadMoreModule?.loadMoreComplete()
+        adapter?.loadMoreModule.takeIf { adapter?.loadMoreModule!!.isLoading }?.apply { loadMoreComplete() }
     }
 
     override fun refreshListSuccess(response: Data) {
-        loadRecommendListSuccess(response)
+        refreshLayout.takeIf { refreshLayout.isRefreshing }?.apply { isRefreshing = false }
+        val resultDatas = ArrayList<Item>()
+        val dataArrayList = ArrayList(response.items)
+        dataArrayList.forEach { item -> resultDatas.takeIf { !item.card_goto.contains("_s") }?.apply { add(item) } }
+        adapter?.loadMoreModule.takeIf { adapter?.loadMoreModule!!.isLoading }?.apply { loadMoreComplete() }
+        adapter?.setNewData(resultDatas)
+
     }
 
-    override fun loadRecommendListSuccess(response: Data) {
-        refreshLayout.isRefreshing = false
-        adapter?.setNewData(response.items as MutableList<Item>)
-    }
 
     override fun showError(msg: String) {
         toast(msg)
     }
-
 
 
     var adapter: RecommendListAdapter? = null
@@ -59,29 +58,28 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter?.loadMoreModule?.isAutoLoadMore = true
-        adapter?.loadMoreModule?.setOnLoadMoreListener { mPresenter.loadMoreList() }
+        adapter?.loadMoreModule?.setOnLoadMoreListener { mPresenter.loadRecommendList(false) }
         adapter?.isUseEmpty = true
 
         adapter?.animationEnable = true
         adapter?.setOnItemClickListener { adapter, view, position ->
             val item = adapter.data.get(position) as Item
             val intent = Intent()
-            if (item.goto.contains("av")){
+            if (item.goto.contains("av")) {
                 intent.setClass(context!!, PlayerActivity::class.java)
-                intent.putExtra(Const.INTENT_VIDEO_AV,item.param)
-            }
-            else if (item.goto.contains("live")){
+                intent.putExtra(Const.INTENT_VIDEO_AV, item.param)
+            } else if (item.goto.contains("live")) {
                 //roomId
                 intent.setClass(context!!, PlayerActivity::class.java)
-                intent.putExtra(Const.INTENT_VIDEO_LIVE,item.param)
-            }else if (item.goto.contains("article")){
+                intent.putExtra(Const.INTENT_VIDEO_LIVE, item.param)
+            } else if (item.goto.contains("article")) {
                 //4791917这是啥
-                intent.putExtra(Const.INTENT_VIDEO_ARTICLE,item.param)
+                intent.putExtra(Const.INTENT_VIDEO_ARTICLE, item.param)
                 intent.setClass(context!!, PlayerActivity::class.java)
-            }else if (item.goto.contains("bangumi")){
+            } else if (item.goto.contains("bangumi")) {
                 //ep
                 intent.setClass(context!!, PlayerActivity::class.java)
-                intent.putExtra(Const.INTENT_VIDEO_BANGUMI,item.param)
+                intent.putExtra(Const.INTENT_VIDEO_BANGUMI, item.param)
             }
 
             startActivity(intent)

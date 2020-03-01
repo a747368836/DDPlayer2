@@ -5,6 +5,7 @@ import retrofit2.http.*
 import top.bilibililike.player.common.apiConfig.Api
 import top.bilibililike.player.common.bean.BaseResponse
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
+import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 import top.bilibililike.player.common.bean.recommend.Data
 
 
@@ -81,5 +82,18 @@ interface BiliService {
     fun getVideoDetail(@Query("aid")aid:String):Deferred<BaseResponse<AvDescriptionBean.DataBean>>
 
 
+    /**
+     * 直播播放的url地址
+     */
+    @GET("https://api.live.bilibili.com/xlive/app-room/v1/playUrl/playUrl")
+    @Headers("${Api.DOMAIN_HEADER}:app.video.${Api.BILI_HEADER}")
+    fun getLivePlayUrl(
+        @Query("cid")roomId:String,
+        @Query("https_url_req") urlReq:Int = 1,
+        @Query("play_type")playType:Int = 0,
+        @Query("ptype")pType:Int = 2,
+        @Query("qn")qn:Int = 10000,
+        @Query("unicom_free") free:Int = 0
+    ):Deferred<BaseResponse<LivePlayUrlBean.DataBean>>
 
 }
