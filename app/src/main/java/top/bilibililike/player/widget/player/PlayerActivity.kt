@@ -88,26 +88,28 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     override fun initView() {
         val params = collapsing_toolbar.layoutParams as AppBarLayout.LayoutParams
         fun initAppBar() {
+            var stateBefore = AppBarStateChangeListener.State.EXPANDED
             appbar_layout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                     if (state === State.EXPANDED) {
-                        //展开状态
-                        tx_title.visibility = View.GONE
+                        tv_title.visibility = View.INVISIBLE
+                        stateBefore = State.EXPANDED
                         //avPlayer.setVisibility(View.VISIBLE);
-
                     } else if (state === State.COLLAPSED) {
                         //折叠状态
-                        tx_title.visibility = View.VISIBLE
-                        // avPlayer.setVisibility(View.INVISIBLE);
-
+                        tv_title.visibility = View.VISIBLE
+                        stateBefore = State.COLLAPSED
                     } else {
                         //中间状态
-                        // avPlayer.setVisibility(View.VISIBLE);
-                        tx_title.visibility = View.INVISIBLE
+                        if (stateBefore == State.COLLAPSED){
+                            tv_title.visibility = View.INVISIBLE
+                        }else{
+                            tv_title.visibility = View.VISIBLE
+                        }
+
                     }
                 }
             })
-
         }
 
         fun setPlayerScrollState() {
@@ -162,6 +164,9 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             video_player.setIsTouchWigetFull(true)
             video_player.setIsTouchWiget(true)
             video_player.seekRatio = 0.5f
+            tv_title.setOnClickListener {
+                video_player.startPlayLogic()
+            }
         }
 
         fun initAudioPlayer() {
@@ -182,7 +187,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 if (audio_player.currentState != CURRENT_STATE_PLAYING) {
                     audio_player.seekTo(currentPosition.toLong())
                     if (audio_player.start.currentState == STATE_PAUSE &&
-                        video_player.currentState != CURRENT_STATE_PLAYING_BUFFERING_START) audio_player.start.performClick()
+                        video_player.currentState != CURRENT_STATE_PLAYING_BUFFERING_START
+                    ) audio_player.start.performClick()
                 }
                 //播放器滑动限制
                 setPlayerScrollState()
@@ -191,7 +197,10 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 val rate: Float = (timeMinus + 1000) / 1000.0f
                 if (timeMinus.absoluteValue > 50) audio_player.setSpeedPlaying(rate, false)
                 else {
-                    if (((audio_player.speed - 1).absoluteValue <= 0.1)) audio_player.setSpeed(1f, false)
+                    if (((audio_player.speed - 1).absoluteValue <= 0.1)) audio_player.setSpeed(
+                        1f,
+                        false
+                    )
                 }
                 Log.d("PlayerActivity", "时间差 = " + timeMinus + "倍数 = " + audio_player.speed)
 
