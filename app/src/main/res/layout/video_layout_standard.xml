@@ -8,6 +8,7 @@
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         >
 
     </RelativeLayout>
@@ -23,14 +24,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#000000"
-        android:scaleType="fitCenter">
-
+        android:scaleType="fitCenter" >
         <ImageView
-            android:id="@+id/thumbImage"
-            android:scaleType="centerCrop"
+            android:id="@+id/imv_cover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="@dimen/qb_px_200"
+            />
     </RelativeLayout>
 
     <LinearLayout
@@ -90,7 +89,6 @@
         android:layout_height="1.5dp"
         android:layout_alignParentBottom="true"
         android:max="100"
-
         android:progressDrawable="@drawable/video_progress" />
 
     <ImageView
@@ -106,9 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/video_title_bg"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        >
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/back"
@@ -116,8 +112,7 @@
             android:layout_height="48dp"
             android:paddingLeft="10dp"
             android:scaleType="centerInside"
-            android:visibility="gone"
-            />
+            android:src="@drawable/video_back" />
 
         <TextView
             android:id="@+id/title"
@@ -125,9 +120,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:visibility="gone"
-            />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <moe.codeest.enviews.ENDownloadView
@@ -164,8 +157,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="50dp"
+        android:visibility="gone"
         android:scaleType="centerInside"
-        android:src="@drawable/unlock"
-        android:visibility="gone" />
+        android:src="@drawable/unlock" />
 
 </RelativeLayout>
