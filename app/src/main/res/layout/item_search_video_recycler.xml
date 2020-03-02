@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/qb_px_110"
+    android:layout_marginStart="@dimen/qb_px_8"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:background="@color/white"
+
+    >
+    <LinearLayout
+        android:paddingTop="@dimen/qb_px_12"
+        android:paddingBottom="@dimen/qb_px_12"
+        android:paddingEnd="@dimen/qb_px_12"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="true">
+
+        <RelativeLayout
+            android:id="@+id/container_cover"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            >
+            <ImageView
+                android:id="@+id/imv_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/shape_bg_conor_radius"
+                tools:background="@mipmap/bili_drawerbg_not_logined" />
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/imv_cover"
+                android:layout_alignBottom="@id/imv_cover"
+                android:layout_marginEnd="@dimen/qb_px_8"
+                android:layout_marginBottom="@dimen/qb_px_16"
+                android:background="@drawable/shape_conor_bg_black"
+                android:padding="@dimen/dp_4"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:text="1:28" />
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="12"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                tools:text="这里是视频的标题" />
+
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_plays"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@mipmap/ic_nickname_up"
+                android:drawablePadding="@dimen/qb_px_4"
+                android:gravity="left"
+                android:textColor="@color/defaultTextGray"
+                android:textSize="12sp"
+                tools:text="up名字" />
+
+            <TextView
+                android:id="@+id/tv_plays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:drawableLeft="@mipmap/ic_plays_gray"
+                android:drawablePadding="@dimen/qb_px_4"
+                android:textSize="12sp"
+                tools:text="99.7万" />
+
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/tv_plays"
+                android:drawableLeft="@mipmap/ic_comments_gray"
+                android:drawablePadding="@dimen/qb_px_4"
+                android:textSize="12sp"
+                tools:text="1563" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</FrameLayout>

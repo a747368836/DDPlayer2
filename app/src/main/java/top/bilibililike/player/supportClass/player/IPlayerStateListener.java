@@ -22,4 +22,7 @@ public interface IPlayerStateListener {
     //放完了
     void onVideoComplete();
 
+    //ui被点了
+    void onClickUiToggle();
+
 }

@@ -7,8 +7,7 @@ import top.bilibililike.player.common.http.ApiManager
 
 
 object SearchModel : BaseModel() {
-    suspend fun getSearchBean(keyword: String): BaseResponse<SearchResultBean.DataBean> =
-        launchIO { ApiManager.biliService.getSearchResult(keyword).await() }
-
+    suspend fun getSearchBean(keyword: String,page:Int,num:Int): BaseResponse<SearchResultBean.DataBean> =
+        launchIO { ApiManager.biliService.getSearchResult(keyword,page,num).await() }
 
 }

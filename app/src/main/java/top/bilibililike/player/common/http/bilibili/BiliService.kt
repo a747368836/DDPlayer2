@@ -99,12 +99,15 @@ interface BiliService {
 
 
     /**
-     *
+     * 搜索 综合
      */
-    @GET("https://app.bilibili.com/x/v2/search")
+    @GET("https://app.biliapi.net/x/v2/search")
     @Headers("${Api.DOMAIN_HEADER}:app.${Api.BILI_HEADER}")
     fun getSearchResult(
-        @Query("keyword")keyword:String
+        @Query("keyword")keyword:String,
+        @Query("pn")pageNumber:Int,
+        @Query("ps")itemNum:Int,
+        @Query("highlight")highLight:Int = 1
     ):Deferred<BaseResponse<SearchResultBean.DataBean>>
 
 

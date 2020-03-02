@@ -9,13 +9,13 @@ import top.bilibililike.mvp.mvp.BasePresenter
  *  @desc:   
  */
 
-class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.View>(view),
-    PlayerContract.Presenter {
+class LivePlayerPresenter(view: LivePlayerContract.View) : BasePresenter<LivePlayerContract.View>(view),
+    LivePlayerContract.Presenter {
     var retryCounter = 0;
     override fun getVideoDetail(av: String) {
         view?.showLoading()
         launchUI({
-            val response = PlayerModel.getVideoDetail(av)
+            val response = LivePlayerModel.getVideoDetail(av)
             if (response.isSuccess()){
                 view?.getVideoDetailSuccess(response.getRawData()!!)
                 retryCounter = 0
@@ -31,7 +31,8 @@ class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.
 
     override fun getAvPlayUrl(av: String,cid:String, qn: String) {
         launchUI({
-            val response = PlayerModel.getVideoUrl(av, cid, qn)
+            val response =
+                LivePlayerModel.getVideoUrl(av, cid, qn)
             if (response.isSuccess()){
                 view?.getVideoUrlSuccess(response.getRawData()!!)
                 view?.hideLoading()
@@ -56,7 +57,7 @@ class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.
 
     override fun getLiveUrl(roomId: String) {
         launchUI({
-            val response = PlayerModel.getLiveUrl(roomId)
+            val response = LivePlayerModel.getLiveUrl(roomId)
             if (response.isSuccess()){
                 view?.getLiveUrlSuccess(response.getRawData()!!)
             }

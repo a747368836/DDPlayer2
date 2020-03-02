@@ -9,12 +9,14 @@ import android.view.Window;
 
 
 import com.shuyu.gsyvideoplayer.GSYVideoBaseManager;
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
 import com.shuyu.gsyvideoplayer.player.IPlayerManager;
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -52,6 +54,7 @@ public class CustomManager extends GSYVideoBaseManager {
      *
      * @return 返回是否全屏
      */
+
     @SuppressWarnings("ResourceType")
     public static boolean backFromWindowFull(Context context, String key) {
         boolean backFrom = false;
@@ -76,7 +79,6 @@ public class CustomManager extends GSYVideoBaseManager {
         }
         getCustomManager(key).releaseMediaPlayer();
     }
-
 
     /**
      * 暂停播放
@@ -188,4 +190,9 @@ public class CustomManager extends GSYVideoBaseManager {
         return gsyVideoPlayer != null;
     }
 
+    @Override
+    public void setOptionModelList(List<VideoOptionModel> optionModelList) {
+        super.setOptionModelList(optionModelList);
+        System.out.println("CustomManager setOptionModelList " + getPlayTag());
+    }
 }
