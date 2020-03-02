@@ -1,11 +1,15 @@
 language: android
+jdk: oraclejdk8
 android:
   components:
-    - build-tools-29.0.2
-    - android-29
-    - sys-img-armeabi-v7a-android-29
-    - sys-img-x86-android-29
-
-before_script:
-  - chmod +x gradlew
-
+  - platform-tools
+  - tools
+  - build-tools-29.0.2
+  - android-29
+  - extra-android-support
+  - extra-android-m2repository
+before_install:
+- chmod +x gradlew
+script:
+- cd app
+- "../gradlew assembleRelease"
