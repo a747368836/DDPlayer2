@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
 
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -19,8 +20,11 @@ import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoViewBridge;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import top.bilibililike.player.R;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 
 public class MultiSampleVideo extends StandardGSYVideoPlayer {
@@ -59,6 +63,10 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
     public int getLayoutId() {
         return R.layout.layout_video_standard;
     }
+/*    @Override
+    public int getLayoutId() {
+        return R.layout.video_layout_standard;
+    }*/
 
     @Override
     protected void init(Context context) {
@@ -84,7 +92,14 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
         };
     }
 
+    @Override
+    protected void onClickUiToggle() {
+        super.onClickUiToggle();
+        if (stateListener != null){
+            stateListener.onClickUiToggle();
+        }
 
+    }
 
     @Override
     public GSYVideoViewBridge getGSYVideoManager() {
@@ -195,6 +210,32 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
                                 .placeholder(res))
                 .load(url)
                 .into(mCoverImage);
+    }
+
+    public void setOptions(String tag){
+        VideoOptionModel videoOptionModel =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "User-Agent", "Bilibili Freedoooooom/MarkII");
+        VideoOptionModel videoOptionModel0 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "Accept", "*/*");
+        VideoOptionModel videoOptionModel1 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max-buffer-size", 1024);
+        VideoOptionModel videoOptionModel2 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "min-frames", 3);
+        VideoOptionModel videoOptionModel3 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probsize", "4096");
+        VideoOptionModel videoOptionModel4 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzeduration", "2000000");
+        VideoOptionModel videoOptionModel5 =
+                new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 50);
+        List<VideoOptionModel> list = new ArrayList<>();
+        list.add(videoOptionModel);
+        list.add(videoOptionModel0);
+        list.add(videoOptionModel1);
+        list.add(videoOptionModel2);
+        list.add(videoOptionModel3);
+        list.add(videoOptionModel4);
+        list.add(videoOptionModel5);
+        CustomManager.getCustomManager(tag).setOptionModelList(list);
     }
 
     @Override
