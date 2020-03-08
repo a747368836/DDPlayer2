@@ -18,10 +18,9 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         refreshLayout.takeIf { refreshLayout.isRefreshing }?.apply { isRefreshing = false }
         val dataArrayList = ArrayList(response.items)
         val resultDatas = ArrayList<Item>()
-        dataArrayList.forEach { item -> resultDatas.takeIf { !item.card_goto.contains("_s") }?.apply { add(item) } }
-        for (data in resultDatas) {
-            adapter?.addData(data)
-        }
+        //api 中存在 article_s special_s ad_s 对应专栏 web广告 app内广告
+        dataArrayList.forEach { item -> resultDatas.takeIf { !item.card_goto.contains("_") }?.apply { add(item) } }
+        resultDatas.forEach{ item -> adapter?.addData(item)}
         adapter?.loadMoreModule.takeIf { adapter?.loadMoreModule!!.isLoading }?.apply { loadMoreComplete() }
     }
 
@@ -32,7 +31,6 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         dataArrayList.forEach { item -> resultDatas.takeIf { !item.card_goto.contains("_s") }?.apply { add(item) } }
         adapter?.loadMoreModule.takeIf { adapter?.loadMoreModule!!.isLoading }?.apply { loadMoreComplete() }
         adapter?.setNewData(resultDatas)
-
     }
 
 
@@ -54,7 +52,6 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
 
     override fun initView() {
         adapter = RecommendListAdapter()
-
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter?.loadMoreModule?.isAutoLoadMore = true
