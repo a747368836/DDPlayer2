@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.provider.Settings
+import android.system.OsConstants.IPPROTO_TCP
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -42,6 +44,7 @@ import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
 import top.bilibililike.player.widget.search.SearchActivity
 import top.bilibililike.player.widget.video.VideoFragment
+import java.net.InetSocketAddress
 import kotlin.Exception as Exception1
 
 
@@ -184,7 +187,25 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
         val intent = Intent(applicationContext, LoginActivity::class.java)
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
-        avatarView?.setOnClickListener { startActivity(intent) }
+        avatarView?.setOnClickListener {
+            //startActivity(intent)
+            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val localAddress = InetSocketAddress(80)
+            val remoteAddress = InetSocketAddress(80)
+            try {
+                Log.d(
+                    TAG,
+                    "getConnectionOwnerUid = " + cm.getConnectionOwnerUid(
+                        IPPROTO_TCP,
+                        localAddress,
+                        remoteAddress
+                    )
+                )
+            } catch (e: NoSuchMethodError) {
+                Log.d(TAG, "getConnectionOwnerUid = 不存在的")
+            }
+
+        }
 
         imv_search.setOnClickListener{startActivity(Intent(applicationContext,SearchActivity::class.java))}
 

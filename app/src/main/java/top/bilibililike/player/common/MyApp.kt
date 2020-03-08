@@ -13,8 +13,7 @@ import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import android.net.ConnectivityManager
 
 
 class MyApp : Application() {
@@ -47,6 +46,8 @@ class MyApp : Application() {
         list.add(videoOptionModel4)
         list.add(videoOptionModel5)
         GSYVideoManager.instance().optionModelList = list
+
+
     }
 
     companion object {
