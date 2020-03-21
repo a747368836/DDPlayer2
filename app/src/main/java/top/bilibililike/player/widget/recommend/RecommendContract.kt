@@ -7,7 +7,7 @@ import top.bilibililike.player.common.bean.recommend.Data
 interface RecommendContract {
 
     interface View : BaseContract.View{
-        fun loadRecommendListSuccess(response:Data)
+
 
         fun loadMoreListSuccess(response:Data)
 
@@ -16,7 +16,5 @@ interface RecommendContract {
 
     interface Presenter : BaseContract.Presenter {
         fun loadRecommendList(isRefresh:Boolean)
-
-        fun loadMoreList()
     }
 }

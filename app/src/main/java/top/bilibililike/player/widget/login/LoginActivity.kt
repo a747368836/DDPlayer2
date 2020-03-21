@@ -17,7 +17,11 @@ import top.bilibililike.player.widget.main.MainActivity
  *  @date:   2020/02/28
  *  @desc:
  */
-
+/**
+ * MVP  M = Model  负责数据加载
+ *      V - View   负责数据的呈现 一般都是activity/fragment
+ *      P = Presenter 负责数据的调度  Model 和 View 的桥梁
+ */
 class LoginActivity : MVPActivity<LoginContract.Presenter>(), LoginContract.View {
     override fun loginSuccess(data: Data) {
         hideLoading()

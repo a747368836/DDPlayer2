@@ -4,6 +4,7 @@ import top.bilibililike.mvp.mvp.BaseModel
 import top.bilibililike.player.common.bean.BaseResponse
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.avUrl.Data
+import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 import top.bilibililike.player.common.http.ApiManager
 
 
@@ -15,15 +16,19 @@ import top.bilibililike.player.common.http.ApiManager
 
 object PlayerModel : BaseModel() {
     suspend fun getVideoUrl(av: String, cid: String, qn: String): BaseResponse<Data> =
-        launchIO{
+        launchIO {
             ApiManager.biliService.getVideoUrl(av, cid, qn).await()
         }
 
-    suspend fun getVideoDetail(av:String):BaseResponse<AvDescriptionBean.DataBean> =
-        launchIO{
+    suspend fun getVideoDetail(av: String): BaseResponse<AvDescriptionBean.DataBean> =
+        launchIO {
             ApiManager.biliService.getVideoDetail(av).await()
         }
 
+    suspend fun getLiveUrl(roomId: String): BaseResponse<LivePlayUrlBean.DataBean> =
+        launchIO {
+            ApiManager.biliService.getLivePlayUrl(roomId).await()
+        }
 
 
 }

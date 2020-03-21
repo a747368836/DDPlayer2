@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <EditText
+        android:id="@+id/search_edtv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_56"
+        android:imeOptions="actionSearch"
+        />
+    <TextView
+        android:id="@+id/txv_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_30"
+        android:text="搜索"
+        android:gravity="center"
+        android:textSize="18sp"
+        />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_32"
+        >
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_search_bangumi_recycler"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

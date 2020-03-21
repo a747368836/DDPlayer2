@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.provider.Settings
+import android.system.OsConstants.IPPROTO_TCP
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -39,20 +42,27 @@ import top.bilibililike.player.widget.hotspot.HotSpotFragment
 import top.bilibililike.player.widget.live.liveFragment.*
 import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
+import top.bilibililike.player.widget.search.SearchActivity
 import top.bilibililike.player.widget.video.VideoFragment
+import java.net.InetSocketAddress
 import kotlin.Exception as Exception1
 
 
 class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
     @SuppressLint("SetTextI18n")
-    override fun showUserInfo(dataBean: Data) {
-        val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
-        Glide.with(this).load(dataBean.face).into(avatarView)
-        Glide.with(this).load(dataBean.face).into(imv_avatar)
-        val nickname = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_nickname)
-        nickname.setText(dataBean.name)
-        val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
-        coinTextView.setText("硬币：${dataBean.coins}\n签名：${dataBean.sign}")
+    override fun showUserInfo(dataBean: Data?) {
+        if (dataBean != null){
+            val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
+            Glide.with(this).load(dataBean.face).into(avatarView)
+            Glide.with(this).load(dataBean.face).into(imv_avatar)
+            val nickname = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_nickname)
+            nickname.setText(dataBean.name)
+            val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
+            coinTextView.setText("硬币：${dataBean.coins}\n签名：${dataBean.sign}")
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+        }
     }
 
 
@@ -174,12 +184,30 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
                 R.id.nav_send
             ), drawerLayout
         )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //navView.setupWithNavController(navController)
+
         val intent = Intent(applicationContext, LoginActivity::class.java)
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
-        avatarView?.setOnClickListener { startActivity(intent) }
+        avatarView?.setOnClickListener {
+            //startActivity(intent)
+            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val localAddress = InetSocketAddress(80)
+            val remoteAddress = InetSocketAddress(80)
+            try {
+                Log.d(
+                    TAG,
+                    "getConnectionOwnerUid = " + cm.getConnectionOwnerUid(
+                        IPPROTO_TCP,
+                        localAddress,
+                        remoteAddress
+                    )
+                )
+            } catch (e: NoSuchMethodError) {
+                Log.d(TAG, "getConnectionOwnerUid = 不存在的")
+            }
 
+        }
+
+        imv_search.setOnClickListener{startActivity(Intent(applicationContext,SearchActivity::class.java))}
 
         requestDrawOverlays()
 
@@ -205,7 +233,6 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"
         )
-
         try {
             if (checkReadAndWritePermission()) {
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE)
@@ -266,17 +293,6 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         }
     }
 
-
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }*/
-
-    /*override fun onSupportNavigateUp(): Boolean {
-        navController = findNavController(R.id.navHostFragment)
-        return navController!!.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }*/
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

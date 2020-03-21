@@ -3,6 +3,7 @@ package top.bilibililike.player.widget.player
 import top.bilibililike.mvp.mvp.BaseContract
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.avUrl.Data
+import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 
 
 /**
@@ -16,7 +17,7 @@ interface PlayerContract {
     interface View : BaseContract.View{
         fun getVideoUrlSuccess(urlDataBean:Data)
 
-        fun getLiveUrlSuccess()
+        fun getLiveUrlSuccess(liveUrlBean:LivePlayUrlBean.DataBean)
         
         fun getVideoDetailSuccess(dataBean:AvDescriptionBean.DataBean)
     }

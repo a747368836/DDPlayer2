@@ -8,7 +8,7 @@
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        >
 
     </RelativeLayout>
 
@@ -90,6 +90,7 @@
         android:layout_height="1.5dp"
         android:layout_alignParentBottom="true"
         android:max="100"
+
         android:progressDrawable="@drawable/video_progress" />
 
     <ImageView
@@ -105,7 +106,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/video_title_bg"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
 
         <ImageView
             android:id="@+id/back"
@@ -113,7 +116,8 @@
             android:layout_height="48dp"
             android:paddingLeft="10dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_back" />
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/title"
@@ -121,7 +125,9 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone"
+            />
     </LinearLayout>
 
     <moe.codeest.enviews.ENDownloadView

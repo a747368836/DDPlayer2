@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraintLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/qb_px_180"
     android:background="@color/colorPrimary"
@@ -10,15 +11,26 @@
     android:fitsSystemWindows="true"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+    <ImageView
+        android:id="@+id/small_tv_cry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/bili_drawerbg_not_logined"
+        />
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivAvatar"
         android:layout_width="@dimen/qb_px_48"
         android:layout_height="@dimen/qb_px_48"
         android:layout_marginStart="@dimen/qb_px_16"
-        android:layout_marginTop="@dimen/qb_px_40"
+        android:layout_marginTop="@dimen/qb_px_16"
         android:src="@mipmap/ico_user_default"
-        app:layout_constraintLeft_toLeftOf="@id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@id/constraintLayout" />
+
+        />
 
     <TextView
         android:id="@+id/tv_nickname"
@@ -28,20 +40,11 @@
         android:text="点击头像登录"
         android:textColor="#ffffff"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@id/ivAvatar"
-        app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+        android:layout_marginStart="@dimen/qb_px_16"
+        android:layout_below="@id/ivAvatar"
+         />
 
-    <ImageView
-        android:id="@+id/small_tv_cry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@mipmap/bili_drawerbg_not_logined"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-        android:alpha="0.15"
-        />
+
 
     <TextView
         android:id="@+id/tv_coins"
@@ -51,8 +54,9 @@
         android:textColor="#ddffffff"
         android:text="B币：0.0  硬币：121.7"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_nickname"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
+        android:layout_below="@id/tv_nickname"
+        android:layout_marginStart="@dimen/qb_px_16"
+ />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

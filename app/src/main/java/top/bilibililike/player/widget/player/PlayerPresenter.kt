@@ -31,8 +31,7 @@ class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.
 
     override fun getAvPlayUrl(av: String,cid:String, qn: String) {
         launchUI({
-            val response =
-                PlayerModel.getVideoUrl(av, cid, qn)
+            val response = PlayerModel.getVideoUrl(av, cid, qn)
             if (response.isSuccess()){
                 view?.getVideoUrlSuccess(response.getRawData()!!)
                 view?.hideLoading()
@@ -56,7 +55,12 @@ class PlayerPresenter(view: PlayerContract.View) : BasePresenter<PlayerContract.
     }
 
     override fun getLiveUrl(roomId: String) {
-
+        launchUI({
+            val response = PlayerModel.getLiveUrl(roomId)
+            if (response.isSuccess()){
+                view?.getLiveUrlSuccess(response.getRawData()!!)
+            }
+        })
     }
 
 }
