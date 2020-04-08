@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/qb_px_10"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/comment_user_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image"
+            android:layout_width="@dimen/qb_px_36"
+            android:layout_height="@dimen/qb_px_36"
+            android:layout_marginEnd="6dp"
+            tools:src="@mipmap/ic_launcher_round"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:layout_toRightOf="@+id/user_image"
+            android:text="用户昵称"/>
+
+        <TextView
+            android:id="@+id/comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="发布时间"
+            android:layout_toRightOf="@id/user_image"
+            android:layout_below="@id/user_name"
+            android:layout_marginTop="@dimen/dp_4"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/focus_image"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/dp_4"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/qb_px_40"
+        android:layout_marginTop="@dimen/qb_px_4"
+        android:layout_marginBottom="@dimen/qb_px_4"
+        android:text="张大仙队长冰心队长" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/qb_px_40"
+        android:layout_marginLeft="@dimen/qb_px_36"
+        android:layout_marginBottom="@dimen/qb_px_8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/good_gray"
+            android:text="111"
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/not_good_gray"
+            android:layout_marginLeft="@dimen/qb_px_10"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_10"
+            android:src="@mipmap/comment_share"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_10"
+            android:src="@mipmap/comment_message"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/qb_px_40">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+</LinearLayout>
