@@ -22,7 +22,7 @@
         >
 
 
-        <top.bilibililike.player.supportClass.player.MultiSampleVideo
+        <top.bilibililike.player.support.player.MultiSampleVideo
             android:id="@+id/audio_player"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -31,7 +31,7 @@
             app:layout_scrollFlags="scroll" />
 
 
-        <top.bilibililike.player.supportClass.player.MultiSampleVideo
+        <top.bilibililike.player.support.player.MultiSampleVideo
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_200"

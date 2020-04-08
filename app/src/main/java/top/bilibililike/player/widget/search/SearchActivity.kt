@@ -1,12 +1,11 @@
 package top.bilibililike.player.widget.search
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_search.*
 import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.search.SearchResultBean
-import top.bilibililike.player.supportClass.SmallLineDecoration
+import top.bilibililike.player.support.SmallLineDecoration
 
 
 class SearchActivity : MVPActivity<SearchContract.Presenter>(), SearchContract.View {

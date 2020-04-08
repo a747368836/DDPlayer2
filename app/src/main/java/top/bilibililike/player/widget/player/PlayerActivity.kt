@@ -1,7 +1,6 @@
 package top.bilibililike.player.widget.player
 
 
-import android.content.Intent
 import android.util.Log
 import kotlinx.android.synthetic.main.layout_player.*
 import top.bilibililike.mvp.mvp.MVPActivity
@@ -10,11 +9,8 @@ import top.bilibililike.player.R
 
 import android.view.View
 
-import tv.danmaku.ijk.media.player.IjkMediaPlayer
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 
-
-import top.bilibililike.player.supportClass.player.CustomManager
+import top.bilibililike.player.support.player.CustomManager
 import com.google.android.material.appbar.AppBarLayout
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoView.*
 import kotlinx.android.synthetic.main.layout_video_standard.view.*
@@ -25,14 +21,11 @@ import top.bilibililike.player.common.bean.avUrl.Data
 import top.bilibililike.player.common.bean.live.LivePlayUrlBean
 
 import top.bilibililike.player.common.utilkit.AppBarStateChangeListener
-import top.bilibililike.player.supportClass.player.IPlayerStateListener
-import top.bilibililike.player.widget.player.live.LivePlayerActivity
+import top.bilibililike.player.support.player.IPlayerStateListener
 import kotlin.math.absoluteValue
 
 import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
 
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 

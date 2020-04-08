@@ -9,20 +9,12 @@ import android.net.Uri
 import android.provider.Settings
 import android.system.OsConstants.IPPROTO_TCP
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.appcompat.widget.Toolbar
-import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -31,11 +23,10 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import top.bilibililike.mvp.base.BaseFragment
 import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.Toasts.toast
-import top.bilibililike.player.widget.live.subtitle.utils.ToastUtil
 import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.userInfo.Data
-import top.bilibililike.player.supportClass.MyPagerAdapter
+import top.bilibililike.player.support.MyPagerAdapter
 import top.bilibililike.player.widget.antivirus.ui.AntiVirusFragment
 import top.bilibililike.player.widget.bangumi.BangumiFragment
 import top.bilibililike.player.widget.hotspot.HotSpotFragment
@@ -45,7 +36,6 @@ import top.bilibililike.player.widget.recommend.RecommendFragment
 import top.bilibililike.player.widget.search.SearchActivity
 import top.bilibililike.player.widget.video.VideoFragment
 import java.net.InetSocketAddress
-import kotlin.Exception as Exception1
 
 
 class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
