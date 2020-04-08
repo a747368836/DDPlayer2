@@ -8,6 +8,7 @@ import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.Toasts.toast
 import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
+import top.bilibililike.player.common.MyApp
 import top.bilibililike.player.common.bean.login.token.Data
 import top.bilibililike.player.widget.main.MainActivity
 
@@ -24,6 +25,8 @@ import top.bilibililike.player.widget.main.MainActivity
  */
 class LoginActivity : MVPActivity<LoginContract.Presenter>(), LoginContract.View {
     override fun loginSuccess(data: Data) {
+        MyApp.hasLogin = true
+        MyApp.userToken = data.token_info.access_token
         hideLoading()
         val intent = Intent(this, MainActivity::class.java)
         intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);

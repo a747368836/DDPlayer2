@@ -33,6 +33,10 @@ class RecommendFragment : MVPFragment<RecommendContract.Presenter>(), RecommendC
         adapter?.setNewData(resultDatas)
     }
 
+    override fun refreshListFailed() {
+        if (refreshLayout.isRefreshing) refreshLayout.isRefreshing = false
+    }
+
 
     override fun showError(msg: String) {
         toast(msg)

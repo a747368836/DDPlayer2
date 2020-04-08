@@ -12,6 +12,8 @@ interface RecommendContract {
         fun loadMoreListSuccess(response:Data)
 
         fun refreshListSuccess(response:Data)
+
+        fun refreshListFailed()
     }
 
     interface Presenter : BaseContract.Presenter {

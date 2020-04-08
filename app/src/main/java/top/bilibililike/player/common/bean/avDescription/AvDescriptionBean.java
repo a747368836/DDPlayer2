@@ -1,7 +1,11 @@
 package top.bilibililike.player.common.bean.avDescription;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AvDescriptionBean {
@@ -50,7 +54,7 @@ public class AvDescriptionBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable {
         /**
          * aid : 224704
          * videos : 30
@@ -405,7 +409,7 @@ public class AvDescriptionBean {
             this.cms = cms;
         }
 
-        public static class RightsBean {
+        public static class RightsBean implements Parcelable {
             /**
              * bp : 0
              * elec : 0
@@ -529,9 +533,60 @@ public class AvDescriptionBean {
             public void setNo_background(int no_background) {
                 this.no_background = no_background;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.bp);
+                dest.writeInt(this.elec);
+                dest.writeInt(this.download);
+                dest.writeInt(this.movie);
+                dest.writeInt(this.pay);
+                dest.writeInt(this.hd5);
+                dest.writeInt(this.no_reprint);
+                dest.writeInt(this.autoplay);
+                dest.writeInt(this.ugc_pay);
+                dest.writeInt(this.is_cooperation);
+                dest.writeInt(this.ugc_pay_preview);
+                dest.writeInt(this.no_background);
+            }
+
+            public RightsBean() {
+            }
+
+            protected RightsBean(Parcel in) {
+                this.bp = in.readInt();
+                this.elec = in.readInt();
+                this.download = in.readInt();
+                this.movie = in.readInt();
+                this.pay = in.readInt();
+                this.hd5 = in.readInt();
+                this.no_reprint = in.readInt();
+                this.autoplay = in.readInt();
+                this.ugc_pay = in.readInt();
+                this.is_cooperation = in.readInt();
+                this.ugc_pay_preview = in.readInt();
+                this.no_background = in.readInt();
+            }
+
+            public static final Creator<RightsBean> CREATOR = new Creator<RightsBean>() {
+                @Override
+                public RightsBean createFromParcel(Parcel source) {
+                    return new RightsBean(source);
+                }
+
+                @Override
+                public RightsBean[] newArray(int size) {
+                    return new RightsBean[size];
+                }
+            };
         }
 
-        public static class OwnerBean {
+        public static class OwnerBean implements Parcelable {
             /**
              * mid : 245050
              * name : blackfox
@@ -565,9 +620,42 @@ public class AvDescriptionBean {
             public void setFace(String face) {
                 this.face = face;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.mid);
+                dest.writeString(this.name);
+                dest.writeString(this.face);
+            }
+
+            public OwnerBean() {
+            }
+
+            protected OwnerBean(Parcel in) {
+                this.mid = in.readInt();
+                this.name = in.readString();
+                this.face = in.readString();
+            }
+
+            public static final Creator<OwnerBean> CREATOR = new Creator<OwnerBean>() {
+                @Override
+                public OwnerBean createFromParcel(Parcel source) {
+                    return new OwnerBean(source);
+                }
+
+                @Override
+                public OwnerBean[] newArray(int size) {
+                    return new OwnerBean[size];
+                }
+            };
         }
 
-        public static class StatBean {
+        public static class StatBean implements Parcelable {
             /**
              * aid : 224704
              * view : 7063237
@@ -681,9 +769,58 @@ public class AvDescriptionBean {
             public void setDislike(int dislike) {
                 this.dislike = dislike;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.aid);
+                dest.writeInt(this.view);
+                dest.writeInt(this.danmaku);
+                dest.writeInt(this.reply);
+                dest.writeInt(this.favorite);
+                dest.writeInt(this.coin);
+                dest.writeInt(this.share);
+                dest.writeInt(this.now_rank);
+                dest.writeInt(this.his_rank);
+                dest.writeInt(this.like);
+                dest.writeInt(this.dislike);
+            }
+
+            public StatBean() {
+            }
+
+            protected StatBean(Parcel in) {
+                this.aid = in.readInt();
+                this.view = in.readInt();
+                this.danmaku = in.readInt();
+                this.reply = in.readInt();
+                this.favorite = in.readInt();
+                this.coin = in.readInt();
+                this.share = in.readInt();
+                this.now_rank = in.readInt();
+                this.his_rank = in.readInt();
+                this.like = in.readInt();
+                this.dislike = in.readInt();
+            }
+
+            public static final Creator<StatBean> CREATOR = new Creator<StatBean>() {
+                @Override
+                public StatBean createFromParcel(Parcel source) {
+                    return new StatBean(source);
+                }
+
+                @Override
+                public StatBean[] newArray(int size) {
+                    return new StatBean[size];
+                }
+            };
         }
 
-        public static class DimensionBean {
+        public static class DimensionBean implements Parcelable {
             /**
              * width : 0
              * height : 0
@@ -717,9 +854,42 @@ public class AvDescriptionBean {
             public void setRotate(int rotate) {
                 this.rotate = rotate;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.width);
+                dest.writeInt(this.height);
+                dest.writeInt(this.rotate);
+            }
+
+            public DimensionBean() {
+            }
+
+            protected DimensionBean(Parcel in) {
+                this.width = in.readInt();
+                this.height = in.readInt();
+                this.rotate = in.readInt();
+            }
+
+            public static final Creator<DimensionBean> CREATOR = new Creator<DimensionBean>() {
+                @Override
+                public DimensionBean createFromParcel(Parcel source) {
+                    return new DimensionBean(source);
+                }
+
+                @Override
+                public DimensionBean[] newArray(int size) {
+                    return new DimensionBean[size];
+                }
+            };
         }
 
-        public static class OwnerExtBean {
+        public static class OwnerExtBean implements Parcelable {
             /**
              * official_verify : {"type":-1,"desc":""}
              * vip : {"vipType":2,"vipDueDate":1679673600000,"dueRemark":"","accessStatus":0,"vipStatus":1,"vipStatusWarn":"","themeType":0,"label":{"path":""}}
@@ -729,7 +899,6 @@ public class AvDescriptionBean {
 
             private OfficialVerifyBean official_verify;
             private VipBean vip;
-            private Object assists;
             private int fans;
 
             public OfficialVerifyBean getOfficial_verify() {
@@ -748,14 +917,6 @@ public class AvDescriptionBean {
                 this.vip = vip;
             }
 
-            public Object getAssists() {
-                return assists;
-            }
-
-            public void setAssists(Object assists) {
-                this.assists = assists;
-            }
-
             public int getFans() {
                 return fans;
             }
@@ -764,7 +925,7 @@ public class AvDescriptionBean {
                 this.fans = fans;
             }
 
-            public static class OfficialVerifyBean {
+            public static class OfficialVerifyBean implements Parcelable {
                 /**
                  * type : -1
                  * desc :
@@ -788,9 +949,40 @@ public class AvDescriptionBean {
                 public void setDesc(String desc) {
                     this.desc = desc;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.type);
+                    dest.writeString(this.desc);
+                }
+
+                public OfficialVerifyBean() {
+                }
+
+                protected OfficialVerifyBean(Parcel in) {
+                    this.type = in.readInt();
+                    this.desc = in.readString();
+                }
+
+                public static final Creator<OfficialVerifyBean> CREATOR = new Creator<OfficialVerifyBean>() {
+                    @Override
+                    public OfficialVerifyBean createFromParcel(Parcel source) {
+                        return new OfficialVerifyBean(source);
+                    }
+
+                    @Override
+                    public OfficialVerifyBean[] newArray(int size) {
+                        return new OfficialVerifyBean[size];
+                    }
+                };
             }
 
-            public static class VipBean {
+            public static class VipBean implements Parcelable {
                 /**
                  * vipType : 2
                  * vipDueDate : 1679673600000
@@ -875,7 +1067,7 @@ public class AvDescriptionBean {
                     this.label = label;
                 }
 
-                public static class LabelBean {
+                public static class LabelBean implements Parcelable {
                     /**
                      * path :
                      */
@@ -889,11 +1081,116 @@ public class AvDescriptionBean {
                     public void setPath(String path) {
                         this.path = path;
                     }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(this.path);
+                    }
+
+                    public LabelBean() {
+                    }
+
+                    protected LabelBean(Parcel in) {
+                        this.path = in.readString();
+                    }
+
+                    public static final Creator<LabelBean> CREATOR = new Creator<LabelBean>() {
+                        @Override
+                        public LabelBean createFromParcel(Parcel source) {
+                            return new LabelBean(source);
+                        }
+
+                        @Override
+                        public LabelBean[] newArray(int size) {
+                            return new LabelBean[size];
+                        }
+                    };
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.vipType);
+                    dest.writeLong(this.vipDueDate);
+                    dest.writeString(this.dueRemark);
+                    dest.writeInt(this.accessStatus);
+                    dest.writeInt(this.vipStatus);
+                    dest.writeString(this.vipStatusWarn);
+                    dest.writeInt(this.themeType);
+                    dest.writeParcelable(this.label, flags);
+                }
+
+                public VipBean() {
+                }
+
+                protected VipBean(Parcel in) {
+                    this.vipType = in.readInt();
+                    this.vipDueDate = in.readLong();
+                    this.dueRemark = in.readString();
+                    this.accessStatus = in.readInt();
+                    this.vipStatus = in.readInt();
+                    this.vipStatusWarn = in.readString();
+                    this.themeType = in.readInt();
+                    this.label = in.readParcelable(LabelBean.class.getClassLoader());
+                }
+
+                public static final Creator<VipBean> CREATOR = new Creator<VipBean>() {
+                    @Override
+                    public VipBean createFromParcel(Parcel source) {
+                        return new VipBean(source);
+                    }
+
+                    @Override
+                    public VipBean[] newArray(int size) {
+                        return new VipBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeParcelable(this.official_verify, flags);
+                dest.writeParcelable(this.vip, flags);
+                dest.writeInt(this.fans);
+            }
+
+            public OwnerExtBean() {
+            }
+
+            protected OwnerExtBean(Parcel in) {
+                this.official_verify = in.readParcelable(OfficialVerifyBean.class.getClassLoader());
+                this.vip = in.readParcelable(VipBean.class.getClassLoader());
+                this.fans = in.readInt();
+            }
+
+            public static final Creator<OwnerExtBean> CREATOR = new Creator<OwnerExtBean>() {
+                @Override
+                public OwnerExtBean createFromParcel(Parcel source) {
+                    return new OwnerExtBean(source);
+                }
+
+                @Override
+                public OwnerExtBean[] newArray(int size) {
+                    return new OwnerExtBean[size];
+                }
+            };
         }
 
-        public static class ReqUserBean {
+        public static class ReqUserBean implements Parcelable {
             /**
              * attention : -999
              * guest_attention : -999
@@ -957,9 +1254,48 @@ public class AvDescriptionBean {
             public void setCoin(int coin) {
                 this.coin = coin;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.attention);
+                dest.writeInt(this.guest_attention);
+                dest.writeInt(this.favorite);
+                dest.writeInt(this.like);
+                dest.writeInt(this.dislike);
+                dest.writeInt(this.coin);
+            }
+
+            public ReqUserBean() {
+            }
+
+            protected ReqUserBean(Parcel in) {
+                this.attention = in.readInt();
+                this.guest_attention = in.readInt();
+                this.favorite = in.readInt();
+                this.like = in.readInt();
+                this.dislike = in.readInt();
+                this.coin = in.readInt();
+            }
+
+            public static final Creator<ReqUserBean> CREATOR = new Creator<ReqUserBean>() {
+                @Override
+                public ReqUserBean createFromParcel(Parcel source) {
+                    return new ReqUserBean(source);
+                }
+
+                @Override
+                public ReqUserBean[] newArray(int size) {
+                    return new ReqUserBean[size];
+                }
+            };
         }
 
-        public static class TIconBean {
+        public static class TIconBean implements Parcelable {
             /**
              * act : {"icon":"http://i0.hdslb.com/bfs/tag/51d5e6ca679d1c472ad37c2a8ba01b444d7e70eb.png"}
              * new : {"icon":"http://i0.hdslb.com/bfs/tag/b8fa96354d66081532e3dd2f1c2ecd7164dbb131.png"}
@@ -985,7 +1321,7 @@ public class AvDescriptionBean {
                 this.newX = newX;
             }
 
-            public static class ActBean {
+            public static class ActBean implements Parcelable {
                 /**
                  * icon : http://i0.hdslb.com/bfs/tag/51d5e6ca679d1c472ad37c2a8ba01b444d7e70eb.png
                  */
@@ -999,9 +1335,38 @@ public class AvDescriptionBean {
                 public void setIcon(String icon) {
                     this.icon = icon;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.icon);
+                }
+
+                public ActBean() {
+                }
+
+                protected ActBean(Parcel in) {
+                    this.icon = in.readString();
+                }
+
+                public static final Creator<ActBean> CREATOR = new Creator<ActBean>() {
+                    @Override
+                    public ActBean createFromParcel(Parcel source) {
+                        return new ActBean(source);
+                    }
+
+                    @Override
+                    public ActBean[] newArray(int size) {
+                        return new ActBean[size];
+                    }
+                };
             }
 
-            public static class NewBean {
+            public static class NewBean implements Parcelable {
                 /**
                  * icon : http://i0.hdslb.com/bfs/tag/b8fa96354d66081532e3dd2f1c2ecd7164dbb131.png
                  */
@@ -1015,10 +1380,70 @@ public class AvDescriptionBean {
                 public void setIcon(String icon) {
                     this.icon = icon;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.icon);
+                }
+
+                public NewBean() {
+                }
+
+                protected NewBean(Parcel in) {
+                    this.icon = in.readString();
+                }
+
+                public static final Creator<NewBean> CREATOR = new Creator<NewBean>() {
+                    @Override
+                    public NewBean createFromParcel(Parcel source) {
+                        return new NewBean(source);
+                    }
+
+                    @Override
+                    public NewBean[] newArray(int size) {
+                        return new NewBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeParcelable(this.act, flags);
+                dest.writeParcelable(this.newX, flags);
+            }
+
+            public TIconBean() {
+            }
+
+            protected TIconBean(Parcel in) {
+                this.act = in.readParcelable(ActBean.class.getClassLoader());
+                this.newX = in.readParcelable(NewBean.class.getClassLoader());
+            }
+
+            public static final Creator<TIconBean> CREATOR = new Creator<TIconBean>() {
+                @Override
+                public TIconBean createFromParcel(Parcel source) {
+                    return new TIconBean(source);
+                }
+
+                @Override
+                public TIconBean[] newArray(int size) {
+                    return new TIconBean[size];
+                }
+            };
         }
 
-        public static class DislikeReasonsV2Bean {
+        public static class DislikeReasonsV2Bean implements Parcelable {
             /**
              * title : 选择不想看的原因，减少相似内容推荐
              * subtitle : (选择后将减少相似内容推荐)
@@ -1108,9 +1533,43 @@ public class AvDescriptionBean {
                     this.rid = rid;
                 }
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.title);
+                dest.writeString(this.subtitle);
+                dest.writeList(this.reasons);
+            }
+
+            public DislikeReasonsV2Bean() {
+            }
+
+            protected DislikeReasonsV2Bean(Parcel in) {
+                this.title = in.readString();
+                this.subtitle = in.readString();
+                this.reasons = new ArrayList<ReasonsBean>();
+                in.readList(this.reasons, ReasonsBean.class.getClassLoader());
+            }
+
+            public static final Creator<DislikeReasonsV2Bean> CREATOR = new Creator<DislikeReasonsV2Bean>() {
+                @Override
+                public DislikeReasonsV2Bean createFromParcel(Parcel source) {
+                    return new DislikeReasonsV2Bean(source);
+                }
+
+                @Override
+                public DislikeReasonsV2Bean[] newArray(int size) {
+                    return new DislikeReasonsV2Bean[size];
+                }
+            };
         }
 
-        public static class PasterBean {
+        public static class PasterBean implements Parcelable {
             /**
              * aid : 0
              * cid : 0
@@ -1174,9 +1633,48 @@ public class AvDescriptionBean {
             public void setUrl(String url) {
                 this.url = url;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.aid);
+                dest.writeInt(this.cid);
+                dest.writeInt(this.duration);
+                dest.writeInt(this.type);
+                dest.writeInt(this.allow_jump);
+                dest.writeString(this.url);
+            }
+
+            public PasterBean() {
+            }
+
+            protected PasterBean(Parcel in) {
+                this.aid = in.readInt();
+                this.cid = in.readInt();
+                this.duration = in.readInt();
+                this.type = in.readInt();
+                this.allow_jump = in.readInt();
+                this.url = in.readString();
+            }
+
+            public static final Creator<PasterBean> CREATOR = new Creator<PasterBean>() {
+                @Override
+                public PasterBean createFromParcel(Parcel source) {
+                    return new PasterBean(source);
+                }
+
+                @Override
+                public PasterBean[] newArray(int size) {
+                    return new PasterBean[size];
+                }
+            };
         }
 
-        public static class CmConfigBean {
+        public static class CmConfigBean implements Parcelable {
             /**
              * ads_control : {"has_danmu":0}
              */
@@ -1191,7 +1689,7 @@ public class AvDescriptionBean {
                 this.ads_control = ads_control;
             }
 
-            public static class AdsControlBean {
+            public static class AdsControlBean implements Parcelable {
                 /**
                  * has_danmu : 0
                  */
@@ -1205,10 +1703,68 @@ public class AvDescriptionBean {
                 public void setHas_danmu(int has_danmu) {
                     this.has_danmu = has_danmu;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.has_danmu);
+                }
+
+                public AdsControlBean() {
+                }
+
+                protected AdsControlBean(Parcel in) {
+                    this.has_danmu = in.readInt();
+                }
+
+                public static final Creator<AdsControlBean> CREATOR = new Creator<AdsControlBean>() {
+                    @Override
+                    public AdsControlBean createFromParcel(Parcel source) {
+                        return new AdsControlBean(source);
+                    }
+
+                    @Override
+                    public AdsControlBean[] newArray(int size) {
+                        return new AdsControlBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeParcelable(this.ads_control, flags);
+            }
+
+            public CmConfigBean() {
+            }
+
+            protected CmConfigBean(Parcel in) {
+                this.ads_control = in.readParcelable(AdsControlBean.class.getClassLoader());
+            }
+
+            public static final Creator<CmConfigBean> CREATOR = new Creator<CmConfigBean>() {
+                @Override
+                public CmConfigBean createFromParcel(Parcel source) {
+                    return new CmConfigBean(source);
+                }
+
+                @Override
+                public CmConfigBean[] newArray(int size) {
+                    return new CmConfigBean[size];
+                }
+            };
         }
 
-        public static class ConfigBean {
+        public static class ConfigBean implements Parcelable {
             /**
              * relates_title : 相关推荐
              * share_style : 1
@@ -1232,9 +1788,40 @@ public class AvDescriptionBean {
             public void setShare_style(int share_style) {
                 this.share_style = share_style;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.relates_title);
+                dest.writeInt(this.share_style);
+            }
+
+            public ConfigBean() {
+            }
+
+            protected ConfigBean(Parcel in) {
+                this.relates_title = in.readString();
+                this.share_style = in.readInt();
+            }
+
+            public static final Creator<ConfigBean> CREATOR = new Creator<ConfigBean>() {
+                @Override
+                public ConfigBean createFromParcel(Parcel source) {
+                    return new ConfigBean(source);
+                }
+
+                @Override
+                public ConfigBean[] newArray(int size) {
+                    return new ConfigBean[size];
+                }
+            };
         }
 
-        public static class PagesBean {
+        public static class PagesBean implements Parcelable {
             /**
              * cid : 3801667
              * page : 1
@@ -1369,7 +1956,7 @@ public class AvDescriptionBean {
                 this.metas = metas;
             }
 
-            public static class DimensionBeanX {
+            public static class DimensionBeanX implements Parcelable {
                 /**
                  * width : 0
                  * height : 0
@@ -1403,9 +1990,42 @@ public class AvDescriptionBean {
                 public void setRotate(int rotate) {
                     this.rotate = rotate;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.width);
+                    dest.writeInt(this.height);
+                    dest.writeInt(this.rotate);
+                }
+
+                public DimensionBeanX() {
+                }
+
+                protected DimensionBeanX(Parcel in) {
+                    this.width = in.readInt();
+                    this.height = in.readInt();
+                    this.rotate = in.readInt();
+                }
+
+                public static final Creator<DimensionBeanX> CREATOR = new Creator<DimensionBeanX>() {
+                    @Override
+                    public DimensionBeanX createFromParcel(Parcel source) {
+                        return new DimensionBeanX(source);
+                    }
+
+                    @Override
+                    public DimensionBeanX[] newArray(int size) {
+                        return new DimensionBeanX[size];
+                    }
+                };
             }
 
-            public static class DmBean {
+            public static class DmBean implements Parcelable {
                 /**
                  * closed : false
                  * real_name : false
@@ -1417,8 +2037,6 @@ public class AvDescriptionBean {
                 private boolean closed;
                 private boolean real_name;
                 private int count;
-                private MaskBean mask;
-                private Object subtitles;
 
                 public boolean isClosed() {
                     return closed;
@@ -1444,27 +2062,41 @@ public class AvDescriptionBean {
                     this.count = count;
                 }
 
-                public MaskBean getMask() {
-                    return mask;
+                @Override
+                public int describeContents() {
+                    return 0;
                 }
 
-                public void setMask(MaskBean mask) {
-                    this.mask = mask;
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeByte(this.closed ? (byte) 1 : (byte) 0);
+                    dest.writeByte(this.real_name ? (byte) 1 : (byte) 0);
+                    dest.writeInt(this.count);
                 }
 
-                public Object getSubtitles() {
-                    return subtitles;
+                public DmBean() {
                 }
 
-                public void setSubtitles(Object subtitles) {
-                    this.subtitles = subtitles;
+                protected DmBean(Parcel in) {
+                    this.closed = in.readByte() != 0;
+                    this.real_name = in.readByte() != 0;
+                    this.count = in.readInt();
                 }
 
-                public static class MaskBean {
-                }
+                public static final Creator<DmBean> CREATOR = new Creator<DmBean>() {
+                    @Override
+                    public DmBean createFromParcel(Parcel source) {
+                        return new DmBean(source);
+                    }
+
+                    @Override
+                    public DmBean[] newArray(int size) {
+                        return new DmBean[size];
+                    }
+                };
             }
 
-            public static class MetasBean {
+            public static class MetasBean implements Parcelable {
                 /**
                  * quality : 16
                  * format :
@@ -1498,10 +2130,97 @@ public class AvDescriptionBean {
                 public void setSize(int size) {
                     this.size = size;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.quality);
+                    dest.writeString(this.format);
+                    dest.writeInt(this.size);
+                }
+
+                public MetasBean() {
+                }
+
+                protected MetasBean(Parcel in) {
+                    this.quality = in.readInt();
+                    this.format = in.readString();
+                    this.size = in.readInt();
+                }
+
+                public static final Creator<MetasBean> CREATOR = new Creator<MetasBean>() {
+                    @Override
+                    public MetasBean createFromParcel(Parcel source) {
+                        return new MetasBean(source);
+                    }
+
+                    @Override
+                    public MetasBean[] newArray(int size) {
+                        return new MetasBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.cid);
+                dest.writeInt(this.page);
+                dest.writeString(this.from);
+                dest.writeString(this.part);
+                dest.writeInt(this.duration);
+                dest.writeString(this.vid);
+                dest.writeString(this.weblink);
+                dest.writeParcelable(this.dimension, flags);
+                dest.writeString(this.dmlink);
+                dest.writeParcelable(this.dm, flags);
+                dest.writeString(this.download_title);
+                dest.writeString(this.download_subtitle);
+                dest.writeList(this.metas);
+            }
+
+            public PagesBean() {
+            }
+
+            protected PagesBean(Parcel in) {
+                this.cid = in.readInt();
+                this.page = in.readInt();
+                this.from = in.readString();
+                this.part = in.readString();
+                this.duration = in.readInt();
+                this.vid = in.readString();
+                this.weblink = in.readString();
+                this.dimension = in.readParcelable(DimensionBeanX.class.getClassLoader());
+                this.dmlink = in.readString();
+                this.dm = in.readParcelable(DmBean.class.getClassLoader());
+                this.download_title = in.readString();
+                this.download_subtitle = in.readString();
+                this.metas = new ArrayList<MetasBean>();
+                in.readList(this.metas, MetasBean.class.getClassLoader());
+            }
+
+            public static final Creator<PagesBean> CREATOR = new Creator<PagesBean>() {
+                @Override
+                public PagesBean createFromParcel(Parcel source) {
+                    return new PagesBean(source);
+                }
+
+                @Override
+                public PagesBean[] newArray(int size) {
+                    return new PagesBean[size];
+                }
+            };
         }
 
-        public static class TagBean {
+        public static class TagBean implements Parcelable {
             /**
              * tag_id : 4759
              * tag_name : 钉宫理惠
@@ -1615,9 +2334,58 @@ public class AvDescriptionBean {
             public void setTag_type(String tag_type) {
                 this.tag_type = tag_type;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.tag_id);
+                dest.writeString(this.tag_name);
+                dest.writeString(this.cover);
+                dest.writeInt(this.likes);
+                dest.writeInt(this.hates);
+                dest.writeInt(this.liked);
+                dest.writeInt(this.hated);
+                dest.writeInt(this.attribute);
+                dest.writeInt(this.is_activity);
+                dest.writeString(this.uri);
+                dest.writeString(this.tag_type);
+            }
+
+            public TagBean() {
+            }
+
+            protected TagBean(Parcel in) {
+                this.tag_id = in.readInt();
+                this.tag_name = in.readString();
+                this.cover = in.readString();
+                this.likes = in.readInt();
+                this.hates = in.readInt();
+                this.liked = in.readInt();
+                this.hated = in.readInt();
+                this.attribute = in.readInt();
+                this.is_activity = in.readInt();
+                this.uri = in.readString();
+                this.tag_type = in.readString();
+            }
+
+            public static final Creator<TagBean> CREATOR = new Creator<TagBean>() {
+                @Override
+                public TagBean createFromParcel(Parcel source) {
+                    return new TagBean(source);
+                }
+
+                @Override
+                public TagBean[] newArray(int size) {
+                    return new TagBean[size];
+                }
+            };
         }
 
-        public static class RelatesBean {
+        public static class RelatesBean implements Parcelable {
             /**
              * aid : 60925645
              * pic : http://i1.hdslb.com/bfs/archive/d9c0369378e39f129f91d96c7a0443e1e53aca49.jpg
@@ -1793,7 +2561,7 @@ public class AvDescriptionBean {
                 this.trackid = trackid;
             }
 
-            public static class OwnerBeanX {
+            public static class OwnerBeanX implements Parcelable {
                 /**
                  * mid : 18225328
                  * name : 马达加斯加腌鱼
@@ -1827,9 +2595,42 @@ public class AvDescriptionBean {
                 public void setFace(String face) {
                     this.face = face;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.mid);
+                    dest.writeString(this.name);
+                    dest.writeString(this.face);
+                }
+
+                public OwnerBeanX() {
+                }
+
+                protected OwnerBeanX(Parcel in) {
+                    this.mid = in.readInt();
+                    this.name = in.readString();
+                    this.face = in.readString();
+                }
+
+                public static final Creator<OwnerBeanX> CREATOR = new Creator<OwnerBeanX>() {
+                    @Override
+                    public OwnerBeanX createFromParcel(Parcel source) {
+                        return new OwnerBeanX(source);
+                    }
+
+                    @Override
+                    public OwnerBeanX[] newArray(int size) {
+                        return new OwnerBeanX[size];
+                    }
+                };
             }
 
-            public static class StatBeanX {
+            public static class StatBeanX implements Parcelable {
                 /**
                  * aid : 60925645
                  * view : 1295861
@@ -1943,10 +2744,120 @@ public class AvDescriptionBean {
                 public void setDislike(int dislike) {
                     this.dislike = dislike;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.aid);
+                    dest.writeInt(this.view);
+                    dest.writeInt(this.danmaku);
+                    dest.writeInt(this.reply);
+                    dest.writeInt(this.favorite);
+                    dest.writeInt(this.coin);
+                    dest.writeInt(this.share);
+                    dest.writeInt(this.now_rank);
+                    dest.writeInt(this.his_rank);
+                    dest.writeInt(this.like);
+                    dest.writeInt(this.dislike);
+                }
+
+                public StatBeanX() {
+                }
+
+                protected StatBeanX(Parcel in) {
+                    this.aid = in.readInt();
+                    this.view = in.readInt();
+                    this.danmaku = in.readInt();
+                    this.reply = in.readInt();
+                    this.favorite = in.readInt();
+                    this.coin = in.readInt();
+                    this.share = in.readInt();
+                    this.now_rank = in.readInt();
+                    this.his_rank = in.readInt();
+                    this.like = in.readInt();
+                    this.dislike = in.readInt();
+                }
+
+                public static final Creator<StatBeanX> CREATOR = new Creator<StatBeanX>() {
+                    @Override
+                    public StatBeanX createFromParcel(Parcel source) {
+                        return new StatBeanX(source);
+                    }
+
+                    @Override
+                    public StatBeanX[] newArray(int size) {
+                        return new StatBeanX[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.aid);
+                dest.writeString(this.pic);
+                dest.writeString(this.title);
+                dest.writeParcelable(this.owner, flags);
+                dest.writeParcelable(this.stat, flags);
+                dest.writeInt(this.duration);
+                dest.writeString(this.gotoX);
+                dest.writeString(this.param);
+                dest.writeString(this.uri);
+                dest.writeInt(this.cid);
+                dest.writeInt(this.ad_index);
+                dest.writeInt(this.src_id);
+                dest.writeString(this.request_id);
+                dest.writeByte(this.is_ad_loc ? (byte) 1 : (byte) 0);
+                dest.writeString(this.client_ip);
+                dest.writeInt(this.card_index);
+                dest.writeString(this.trackid);
+            }
+
+            public RelatesBean() {
+            }
+
+            protected RelatesBean(Parcel in) {
+                this.aid = in.readInt();
+                this.pic = in.readString();
+                this.title = in.readString();
+                this.owner = in.readParcelable(OwnerBeanX.class.getClassLoader());
+                this.stat = in.readParcelable(StatBeanX.class.getClassLoader());
+                this.duration = in.readInt();
+                this.gotoX = in.readString();
+                this.param = in.readString();
+                this.uri = in.readString();
+                this.cid = in.readInt();
+                this.ad_index = in.readInt();
+                this.src_id = in.readInt();
+                this.request_id = in.readString();
+                this.is_ad_loc = in.readByte() != 0;
+                this.client_ip = in.readString();
+                this.card_index = in.readInt();
+                this.trackid = in.readString();
+            }
+
+            public static final Creator<RelatesBean> CREATOR = new Creator<RelatesBean>() {
+                @Override
+                public RelatesBean createFromParcel(Parcel source) {
+                    return new RelatesBean(source);
+                }
+
+                @Override
+                public RelatesBean[] newArray(int size) {
+                    return new RelatesBean[size];
+                }
+            };
         }
 
-        public static class DislikeReasonsBean {
+        public static class DislikeReasonsBean implements Parcelable {
             /**
              * reason_id : 5
              * reason_name : 标题党/封面党
@@ -1970,6 +2881,37 @@ public class AvDescriptionBean {
             public void setReason_name(String reason_name) {
                 this.reason_name = reason_name;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.reason_id);
+                dest.writeString(this.reason_name);
+            }
+
+            public DislikeReasonsBean() {
+            }
+
+            protected DislikeReasonsBean(Parcel in) {
+                this.reason_id = in.readInt();
+                this.reason_name = in.readString();
+            }
+
+            public static final Creator<DislikeReasonsBean> CREATOR = new Creator<DislikeReasonsBean>() {
+                @Override
+                public DislikeReasonsBean createFromParcel(Parcel source) {
+                    return new DislikeReasonsBean(source);
+                }
+
+                @Override
+                public DislikeReasonsBean[] newArray(int size) {
+                    return new DislikeReasonsBean[size];
+                }
+            };
         }
 
         public static class CmsBean {
@@ -2050,5 +2992,96 @@ public class AvDescriptionBean {
             public static class AdInfoBean {
             }
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.aid);
+            dest.writeInt(this.videos);
+            dest.writeInt(this.tid);
+            dest.writeString(this.tname);
+            dest.writeString(this.pic);
+            dest.writeString(this.title);
+            dest.writeInt(this.pubdate);
+            dest.writeInt(this.ctime);
+            dest.writeString(this.desc);
+            dest.writeInt(this.state);
+            dest.writeInt(this.duration);
+            dest.writeParcelable(this.rights, flags);
+            dest.writeParcelable(this.owner, flags);
+            dest.writeParcelable(this.stat, flags);
+            dest.writeString(this.dynamic);
+            dest.writeInt(this.cid);
+            dest.writeParcelable(this.owner_ext, flags);
+            dest.writeString(this.short_link);
+            dest.writeInt(this.play_param);
+            dest.writeParcelable(this.config, flags);
+            dest.writeString(this.share_subtitle);
+            dest.writeList(this.pages);
+            dest.writeList(this.tag);
+            dest.writeList(this.relates);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.aid = in.readInt();
+            this.videos = in.readInt();
+            this.tid = in.readInt();
+            this.tname = in.readString();
+            this.copyright = in.readInt();
+            this.pic = in.readString();
+            this.title = in.readString();
+            this.pubdate = in.readInt();
+            this.ctime = in.readInt();
+            this.desc = in.readString();
+            this.state = in.readInt();
+            this.attribute = in.readInt();
+            this.duration = in.readInt();
+            this.rights = in.readParcelable(RightsBean.class.getClassLoader());
+            this.owner = in.readParcelable(OwnerBean.class.getClassLoader());
+            this.stat = in.readParcelable(StatBean.class.getClassLoader());
+            this.dynamic = in.readString();
+            this.cid = in.readInt();
+            this.dimension = in.readParcelable(DimensionBean.class.getClassLoader());
+            this.owner_ext = in.readParcelable(OwnerExtBean.class.getClassLoader());
+            this.req_user = in.readParcelable(ReqUserBean.class.getClassLoader());
+            this.t_icon = in.readParcelable(TIconBean.class.getClassLoader());
+            this.dislike_reasons_v2 = in.readParcelable(DislikeReasonsV2Bean.class.getClassLoader());
+            this.dm_seg = in.readInt();
+            this.paster = in.readParcelable(PasterBean.class.getClassLoader());
+            this.cm_config = in.readParcelable(CmConfigBean.class.getClassLoader());
+            this.short_link = in.readString();
+            this.play_param = in.readInt();
+            this.config = in.readParcelable(ConfigBean.class.getClassLoader());
+            this.share_subtitle = in.readString();
+            this.pages = new ArrayList<PagesBean>();
+            in.readList(this.pages, PagesBean.class.getClassLoader());
+            this.tag = new ArrayList<TagBean>();
+            in.readList(this.tag, TagBean.class.getClassLoader());
+            this.relates = new ArrayList<RelatesBean>();
+            in.readList(this.relates, RelatesBean.class.getClassLoader());
+            this.dislike_reasons = new ArrayList<DislikeReasonsBean>();
+            in.readList(this.dislike_reasons, DislikeReasonsBean.class.getClassLoader());
+            this.cms = new ArrayList<CmsBean>();
+            in.readList(this.cms, CmsBean.class.getClassLoader());
+        }
+
+        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
 }

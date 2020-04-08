@@ -14,6 +14,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.ConnectivityManager
+import top.bilibililike.player.common.dao.userDataBase
 
 
 class MyApp : Application() {
@@ -22,6 +23,11 @@ class MyApp : Application() {
         super.onCreate()
         DDComponent.init(this, MyRetrofitConfig())
         mContext = applicationContext
+        val tokenInfo = userDataBase.getTokenDao().getTokenAsyc()
+        tokenInfo?.apply {
+            hasLogin = true
+            userToken = this.access_token
+        }
         //GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL);
         val videoOptionModel = VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "User-Agent", "Bilibili Freedoooooom/MarkII")
         val list = ArrayList<VideoOptionModel>()
@@ -53,7 +59,8 @@ class MyApp : Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var mContext: Context
-
+        var hasLogin = false;
+        var userToken = "";
 
     }
 

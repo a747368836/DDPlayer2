@@ -2,6 +2,7 @@ package top.bilibililike.player.widget.player
 
 
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.layout_player.*
 import top.bilibililike.mvp.mvp.MVPActivity
@@ -9,6 +10,7 @@ import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
 
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
@@ -16,6 +18,7 @@ import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 
 import top.bilibililike.player.supportClass.player.CustomManager
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoView.*
 import kotlinx.android.synthetic.main.layout_video_standard.view.*
 import moe.codeest.enviews.ENPlayView.STATE_PAUSE
@@ -30,6 +33,14 @@ import top.bilibililike.player.widget.player.live.LivePlayerActivity
 import kotlin.math.absoluteValue
 
 import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
+import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main.viewPager
+import top.bilibililike.mvp.base.BaseFragment
+import top.bilibililike.mvp.mvp.MVPFragment
+import top.bilibililike.player.supportClass.MyPagerAdapter
+import top.bilibililike.player.widget.videodetail.comment.CommentFragment
+import top.bilibililike.player.widget.videodetail.introduction.IntroductionFragment
 
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,6 +61,7 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
 
     override fun getVideoDetailSuccess(dataBean: AvDescriptionBean.DataBean) {
         video_player.title.setText(dataBean.title)
+        initVideoIntroduction(dataBean)
         presenter.getAvPlayUrl(dataBean.aid.toString(), dataBean.cid.toString(), "32")
     }
 
@@ -65,20 +77,17 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     }
 
     override fun getLiveUrlSuccess(liveUrlBean: LivePlayUrlBean.DataBean) {
-        /*val intent = Intent(this, LivePlayerActivity::class.java);
-        intent.putExtra("url", liveUrlBean.durl.get(0).url)
-        startActivity(intent)*/
         loadPlayer(liveUrlBean.durl.get(0).url)
 
     }
 
     override fun getLayoutId(): Int {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+       /* window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)*/
         return R.layout.activity_player
     }
 
@@ -267,6 +276,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             })
         }
 
+
+
         fun dispatchVideoTask() {
             val avStr = intent.getStringExtra(Const.INTENT_VIDEO_AV)
             val liveRoomStr = intent.getStringExtra(Const.INTENT_VIDEO_LIVE)
@@ -285,9 +296,56 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 initBangumiData()
             }
         }
+
         initAppBar()
 
         dispatchVideoTask()
+    }
+
+    fun initVideoIntroduction(dataBean: AvDescriptionBean.DataBean){
+        val introductionFragment = IntroductionFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("dataBean",dataBean);
+        introductionFragment.arguments = bundle;
+        val commentFragment = CommentFragment()
+        val fragmentList = ArrayList<BaseFragment>()
+        fragmentList.add(introductionFragment)
+        fragmentList.add(commentFragment)
+        viewPager.adapter = MyPagerAdapter(supportFragmentManager,fragmentList)
+        tab_layout.addTab(tab_layout.newTab().setText("简介"))
+        tab_layout.addTab(tab_layout.newTab().setText("评论"))
+        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
+
+        })
+        viewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                tab_layout.selectTab(tab_layout.getTabAt(position))
+            }
+
+        })
     }
 
     fun initAvData(avString: String) {
