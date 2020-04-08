@@ -1,6 +1,7 @@
 package top.bilibililike.player.common.apiConfig
 
 
+import top.bilibililike.player.common.MyApp
 import top.bilibililike.player.common.dao.userDataBase
 import java.util.concurrent.ConcurrentHashMap
 
@@ -27,17 +28,15 @@ object Api {
     private var params: ConcurrentHashMap<String, String>? = null
     fun initParams() {
 
-        val tokenInfo = userDataBase.getTokenDao().getTokenAsyc()
-
-
+        val accessToken :String = MyApp.userToken
         if (params != null) {
             params!!.clear()
         } else {
             params = ConcurrentHashMap()
         }
         params!!["appkey"] = appkey
-        if (tokenInfo != null) {
-            params!!["access_key"] = tokenInfo.access_token
+        if (MyApp.hasLogin) {
+            params!!["access_key"] = accessToken
         }
         params!!["build"] = build
         params!!["channel"] = channel

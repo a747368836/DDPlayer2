@@ -45,7 +45,7 @@
                 android:layout_alignEnd="@id/imv_cover"
                 android:layout_alignBottom="@id/imv_cover"
                 android:layout_marginEnd="@dimen/qb_px_8"
-                android:layout_marginBottom="@dimen/qb_px_16"
+                android:layout_marginBottom="@dimen/qb_px_8"
                 android:background="@drawable/shape_conor_bg_black"
                 android:padding="@dimen/dp_4"
                 android:textColor="@color/white"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:drawableLeft="@mipmap/ic_plays_gray"
+                android:drawableStart="@mipmap/ic_plays_gray"
                 android:drawablePadding="@dimen/qb_px_4"
                 android:textSize="12sp"
                 tools:text="99.7万" />
@@ -103,7 +103,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@id/tv_plays"
-                android:drawableLeft="@mipmap/ic_comments_gray"
+                android:drawableStart="@mipmap/ic_comments_gray"
                 android:drawablePadding="@dimen/qb_px_4"
                 android:textSize="12sp"
                 tools:text="1563" />

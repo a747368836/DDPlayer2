@@ -9,7 +9,10 @@ import android.net.Uri
 import android.provider.Settings
 import android.system.OsConstants.IPPROTO_TCP
 import android.util.Log
+
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import androidx.navigation.ui.AppBarConfiguration
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,12 +28,14 @@ import top.bilibililike.mvp.constant.Const
 import top.bilibililike.mvp.ext.Toasts.toast
 import top.bilibililike.mvp.mvp.MVPActivity
 import top.bilibililike.player.R
+import top.bilibililike.player.common.MyApp
 import top.bilibililike.player.common.bean.userInfo.Data
 import top.bilibililike.player.support.MyPagerAdapter
 import top.bilibililike.player.widget.antivirus.ui.AntiVirusFragment
 import top.bilibililike.player.widget.bangumi.BangumiFragment
 import top.bilibililike.player.widget.hotspot.HotSpotFragment
 import top.bilibililike.player.widget.live.liveFragment.*
+import top.bilibililike.player.widget.live.subtitle.utils.ToastUtil
 import top.bilibililike.player.widget.login.LoginActivity
 import top.bilibililike.player.widget.recommend.RecommendFragment
 import top.bilibililike.player.widget.search.SearchActivity
@@ -41,7 +46,7 @@ import java.net.InetSocketAddress
 class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
     @SuppressLint("SetTextI18n")
     override fun showUserInfo(dataBean: Data?) {
-        if (dataBean != null){
+        if (dataBean != null) {
             val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
             Glide.with(this).load(dataBean.face).into(avatarView)
             Glide.with(this).load(dataBean.face).into(imv_avatar)
@@ -49,7 +54,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
             nickname.setText(dataBean.name)
             val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
             coinTextView.setText("硬币：${dataBean.coins}\n签名：${dataBean.sign}")
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
@@ -75,7 +80,6 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         //init toolbar
         /*val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)*/
-
 
 
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
@@ -178,26 +182,38 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         val intent = Intent(applicationContext, LoginActivity::class.java)
         val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
         avatarView?.setOnClickListener {
-            //startActivity(intent)
-            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val localAddress = InetSocketAddress(80)
-            val remoteAddress = InetSocketAddress(80)
-            try {
-                Log.d(
-                    TAG,
-                    "getConnectionOwnerUid = " + cm.getConnectionOwnerUid(
-                        IPPROTO_TCP,
-                        localAddress,
-                        remoteAddress
-                    )
-                )
-            } catch (e: NoSuchMethodError) {
-                Log.d(TAG, "getConnectionOwnerUid = 不存在的")
+            if (!MyApp.hasLogin) {
+                startActivity(intent)
+            } else {
+                ToastUtil.show("暂未开放（没做完）")
             }
+        }
+        val smallTvImgView = navView.getHeaderView(0).findViewById<ImageView>(R.id.small_tv_cry)
+        if (!MyApp.hasLogin) {
+            smallTvImgView.setImageDrawable(resources.getDrawable(R.mipmap.bili_drawerbg_not_logined))
+        } else {
+            smallTvImgView.setImageDrawable(resources.getDrawable(R.mipmap.bili_drawerbg_logined))
+            smallTvImgView.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        smallTvImgView.setImageDrawable(resources.getDrawable(R.mipmap.bili_drawerbg_not_logined))
+                    } else {
+                        smallTvImgView.setImageDrawable(resources.getDrawable(R.mipmap.bili_drawerbg_logined))
+                    }
+                    return false
+                }
 
+            })
         }
 
-        imv_search.setOnClickListener{startActivity(Intent(applicationContext,SearchActivity::class.java))}
+        imv_search.setOnClickListener {
+            startActivity(
+                Intent(
+                    applicationContext,
+                    SearchActivity::class.java
+                )
+            )
+        }
 
         requestDrawOverlays()
 
@@ -209,7 +225,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         presenter.loadUserInfo()
     }
 
-    private fun checkReadAndWritePermission():Boolean{
+    private fun checkReadAndWritePermission(): Boolean {
         val permissions: Array<String> = arrayOf(
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"
@@ -218,13 +234,14 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         permission = permission and ActivityCompat.checkSelfPermission(this, permissions[1])
         return permission == PackageManager.PERMISSION_GRANTED
     }
+
     private fun requestReadAndWrite() {
         val permissions: Array<String> = arrayOf(
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"
         )
         try {
-            if (checkReadAndWritePermission()) {
+            if (!checkReadAndWritePermission()) {
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE)
             }
         } catch (e: Exception) {
@@ -274,7 +291,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
                 toast("请通过悬浮窗权限申请！")
                 requestDrawOverlays()
             }
-            if (!checkReadAndWritePermission()){
+            if (!checkReadAndWritePermission()) {
                 toast("请通过读写磁盘权限申请！")
                 requestReadAndWrite()
             }
@@ -298,7 +315,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
         setIntent(intent)
         val str = intent?.getStringExtra(Const.INTENT_EVENT)
         if (str != null && str == Const.LOGIN_SUCCESS) {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             presenter.loadUserInfo()

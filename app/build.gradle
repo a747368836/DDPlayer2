@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+    ndkVersion "21.0.6113669"
     defaultConfig {
         applicationId "top.bilibililike.ddplayer"
         minSdkVersion 24
@@ -31,6 +32,10 @@ android {
         ndk {
             abiFilters "armeabi-v7a"
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 
 /*    kotlin {

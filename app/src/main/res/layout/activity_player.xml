@@ -17,18 +17,12 @@
         >
 
     </FrameLayout>-->
-    <androidx.core.widget.NestedScrollView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
-        <TextView
-            android:textSize="123sp"
-            android:text="1a5sd165a1f65e16f1we1fwe1f6we1f6we1f651f65we1f6w1ef6we1f6w1e6f16we"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TextView>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

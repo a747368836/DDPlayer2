@@ -18,6 +18,7 @@ class RecommendPresenter(view: RecommendContract.View) :
                     view?.loadMoreListSuccess(getRawData()!!)
                 }
             }
+            view?.takeIf { !response.isSuccess() }.apply { view?.hideLoading() }
         }
         )
     }
