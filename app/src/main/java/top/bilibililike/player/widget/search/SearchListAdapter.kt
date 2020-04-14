@@ -31,7 +31,7 @@ class SearchListAdapter(data: MutableList<SearchResultBean.DataBean.ItemBean>?) 
                 val start = "<em class=\"keyword\">"
                 val end = "</em>"
                 val title = item.title.replace(start,"<font color=\"#fb7299\"").replace(end,"</font>")
-                helper.setText(R.id.tv_title,Html.fromHtml(title))
+                helper.setText(R.id.tv_play,Html.fromHtml(title))
                     .setText(R.id.tv_plays,item.play)
                     ?.setText(R.id.tv_duration,item.duration)
                     ?.setText(R.id.tv_comments,item.danmaku)

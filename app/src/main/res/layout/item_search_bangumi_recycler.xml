@@ -37,7 +37,7 @@
                 android:paddingLeft="@dimen/qb_px_12">
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/tv_play"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -52,7 +52,7 @@
                     android:id="@+id/tv_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_title"
+                    android:layout_below="@id/tv_play"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:paddingTop="@dimen/qb_px_5"

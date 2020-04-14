@@ -1,6 +1,5 @@
 package top.bilibililike.player.widget.live.subtitle.roominfo;
 
-import android.media.Image;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +26,7 @@ public class RoomInfoAdapter extends BaseQuickAdapter<RepoBean.DataBean, BaseVie
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, RepoBean.DataBean dataBean) {
         RepoBean.DataBean.RoomInfoBean infoBean = dataBean.getRoom_info();
-        baseViewHolder.setText(R.id.tv_title,infoBean.getTitle())
+        baseViewHolder.setText(R.id.tv_play,infoBean.getTitle())
                 .setText(R.id.tv_up_nickname,dataBean.getAnchor_info().getBase_info().getUname());
         Glide.with(baseViewHolder.itemView)
                 .load(infoBean.getCover())

@@ -24,7 +24,7 @@ public class SearchAdapter0 extends BaseMultiItemQuickAdapter<SearchResultBean.D
         switch (helper.getItemViewType()) {
             case SearchResultBean.DataBean.ItemBean.AV:
                 String title = item.getTitle().replace("em class=\"keyword\"", "font color=\"#fb7299\"").replace("</em>", "</font>");
-                helper.setText(R.id.tv_title, Html.fromHtml(title,Html.FROM_HTML_MODE_LEGACY))
+                helper.setText(R.id.tv_play, Html.fromHtml(title,Html.FROM_HTML_MODE_LEGACY))
                         .setText(R.id.tv_plays, item.getPlay())
                         .setText(R.id.tv_duration, item.getDuration()+"")
                         .setText(R.id.tv_comments, item.getDanmaku()+"")
@@ -35,7 +35,7 @@ public class SearchAdapter0 extends BaseMultiItemQuickAdapter<SearchResultBean.D
 
             case SearchResultBean.DataBean.ItemBean.BANGUMI:
                 String title1 = item.getTitle().replace("em class=\"keyword\"", "font color=\"#fb7299\"").replace("</em>", "</font>");
-                helper.setText(R.id.tv_title, Html.fromHtml(title1+""));
+                helper.setText(R.id.tv_play, Html.fromHtml(title1+""));
                 Glide.with(helper.itemView).load(item.getCover()).into((ImageView) helper.getView(R.id.imv_cover));
                 break;
 

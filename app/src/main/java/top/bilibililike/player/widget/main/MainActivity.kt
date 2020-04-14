@@ -44,7 +44,7 @@ import java.net.InetSocketAddress
 
 
 class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
-    @SuppressLint("SetTextI18n")
+
     override fun showUserInfo(dataBean: Data?) {
         if (dataBean != null) {
             val avatarView = navView.getHeaderView(0).findViewById<ImageView>(R.id.ivAvatar)
@@ -53,6 +53,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
             val nickname = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_nickname)
             nickname.setText(dataBean.name)
             val coinTextView = navView.getHeaderView(0).findViewById<TextView>(R.id.tv_coins)
+            coinTextView.visibility = View.VISIBLE
             coinTextView.setText("硬币：${dataBean.coins}\n签名：${dataBean.sign}")
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -167,7 +168,7 @@ class MainActivity : MVPActivity<MainContract.Presenter>(), MainContract.View {
 
         })
 
-        //init appBar's navitation and item
+        //这一段暂时没用了，后面可能也不考虑完成
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,

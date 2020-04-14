@@ -6,6 +6,9 @@ import android.media.AudioManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 
@@ -59,14 +62,18 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
         this.stateListener = listener;
     }
 
-    @Override
+    /*@Override
     public int getLayoutId() {
         return R.layout.layout_video_standard;
-    }
-/*    @Override
-    public int getLayoutId() {
-        return R.layout.video_layout_standard;
     }*/
+
+    @Override
+    public int getLayoutId() {
+        if (mIfCurrentIsFullscreen) {
+            return R.layout.layout_player_land;
+        }
+        return R.layout.layout_video_standard;
+    }
 
     @Override
     protected void init(Context context) {
@@ -90,6 +97,33 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
                     break;
             }
         };
+
+        /*post(new Runnable() {
+            @Override
+            public void run() {
+                gestureDetector = new GestureDetector(getContext().getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        touchDoubleUp();
+                        return super.onDoubleTap(e);
+                    }
+
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        if (!mChangePosition && !mChangeVolume && !mBrightness) {
+                            onClickUiToggle();
+                        }
+                        return super.onSingleTapConfirmed(e);
+                    }
+
+                    @Override
+                    public void onLongPress(MotionEvent e) {
+                        super.onLongPress(e);
+                    }
+                });
+            }
+        });*/
+
     }
 
     @Override

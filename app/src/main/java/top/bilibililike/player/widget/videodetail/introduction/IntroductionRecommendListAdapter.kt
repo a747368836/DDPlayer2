@@ -5,7 +5,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
-import top.bilibililike.player.common.bean.recommend.Item
 import top.bilibililike.player.common.utilkit.FormatUtils
 
 /**
@@ -19,7 +18,7 @@ class IntroductionRecommendListAdapter : BaseQuickAdapter<AvDescriptionBean.Data
         Glide.with(helper.itemView)
             .load(item.pic)
             .into(helper.getView(R.id.imv_cover))
-        helper.setText(R.id.tv_title,item.title)
+        helper.setText(R.id.tv_play,item.title)
             .setText(R.id.tv_nickname,item.owner.name)
             .setText(R.id.tv_plays,FormatUtils.getNum(item.stat.view))
             .setText(R.id.tv_comments,FormatUtils.getNum(item.stat.danmaku))

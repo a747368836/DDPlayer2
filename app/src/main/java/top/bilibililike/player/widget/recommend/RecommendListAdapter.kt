@@ -1,11 +1,8 @@
 package top.bilibililike.player.widget.recommend
 
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.BaseLoadMoreModule
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.bilibililike.player.R
@@ -26,7 +23,7 @@ class RecommendListAdapter : BaseQuickAdapter<Item, BaseViewHolder>(R.layout.ite
 
 
     override fun convert(helper: BaseViewHolder, item: Item) {
-        helper.setText(R.id.tv_title,item.title)
+        helper.setText(R.id.tv_play,item.title)
             .setText(R.id.tv_up_nickname,item.args.up_name)
             .setText(R.id.tv_plays,item.cover_left_text_1)
             .setText(R.id.tv_comments,item.cover_left_text_2)

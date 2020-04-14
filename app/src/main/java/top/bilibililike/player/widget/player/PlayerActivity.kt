@@ -1,44 +1,34 @@
 package top.bilibililike.player.widget.player
 
 
-
 import android.os.Bundle
 import android.util.Log
-import kotlinx.android.synthetic.main.layout_player.*
-import top.bilibililike.mvp.mvp.MVPActivity
-
-import top.bilibililike.player.R
-
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.viewpager.widget.ViewPager
-
-
-import top.bilibililike.player.support.player.CustomManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
+import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoView.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.layout_player.*
 import kotlinx.android.synthetic.main.layout_video_standard.view.*
 import moe.codeest.enviews.ENPlayView.STATE_PAUSE
+import top.bilibililike.mvp.base.BaseFragment
 import top.bilibililike.mvp.constant.Const
+import top.bilibililike.mvp.mvp.MVPActivity
+import top.bilibililike.player.R
 import top.bilibililike.player.common.bean.avDescription.AvDescriptionBean
 import top.bilibililike.player.common.bean.avUrl.Data
 import top.bilibililike.player.common.bean.live.LivePlayUrlBean
-
 import top.bilibililike.player.common.utilkit.AppBarStateChangeListener
-import top.bilibililike.player.support.player.IPlayerStateListener
-import kotlin.math.absoluteValue
-
-import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
-import kotlinx.android.synthetic.main.activity_player.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.content_main.viewPager
-import top.bilibililike.mvp.base.BaseFragment
-import top.bilibililike.mvp.mvp.MVPFragment
 import top.bilibililike.player.support.MyPagerAdapter
+import top.bilibililike.player.support.player.CustomManager
+import top.bilibililike.player.support.player.IPlayerStateListener
 import top.bilibililike.player.widget.videodetail.comment.CommentFragment
 import top.bilibililike.player.widget.videodetail.introduction.IntroductionFragment
-
-import kotlin.collections.HashMap
+import kotlin.math.absoluteValue
 
 
 /**
@@ -55,6 +45,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
 
     override fun getVideoDetailSuccess(dataBean: AvDescriptionBean.DataBean) {
         video_player.title.setText(dataBean.title)
+        videoTitle = dataBean.title
+        tv_title.text = videoTitle
         initVideoIntroduction(dataBean)
         presenter.getAvPlayUrl(dataBean.aid.toString(), dataBean.cid.toString(), "32")
     }
@@ -65,7 +57,7 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             loadPlayer(dashBean.video.get(0).base_url, dashBean.audio.get(0).base_url)
         } else {
             //todo 这部分都是老视频 url是分段的 但是音视频一体 得后续做兼容 要不只有7分钟左右
-            // 思路：放多个播放器，重写底下状态栏
+            // 思路：放多个播放器在同一个位置，重写底下状态栏，简单粗暴，但可能得不到解决就被腰斩了。
             loadPlayer(urlDataBean.durl!!.durl.get(0).url)
         }
     }
@@ -76,12 +68,6 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     }
 
     override fun getLayoutId(): Int {
-       /* window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)*/
         return R.layout.activity_player
     }
 
@@ -95,19 +81,23 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             appbar_layout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
                 override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                     if (state === State.EXPANDED) {
-                        tv_title.visibility = View.INVISIBLE
+                        tv_play.visibility = View.GONE
+                        tv_title.visibility = View.VISIBLE
                         stateBefore = State.EXPANDED
                         //avPlayer.setVisibility(View.VISIBLE);
                     } else if (state === State.COLLAPSED) {
                         //折叠状态
-                        tv_title.visibility = View.VISIBLE
+                        tv_play.visibility = View.VISIBLE
+                        tv_title.visibility = View.GONE
                         stateBefore = State.COLLAPSED
                     } else {
                         //中间状态
-                        if (stateBefore == State.COLLAPSED){
-                            tv_title.visibility = View.INVISIBLE
-                        }else{
-                            tv_title.visibility = View.VISIBLE
+                        if (stateBefore == State.COLLAPSED) {
+                            tv_play.visibility = View.GONE
+                            tv_title.visibility = View.GONE
+                        } else {
+                            tv_play.visibility = View.VISIBLE
+                            tv_title.visibility = View.GONE
                         }
 
                     }
@@ -167,9 +157,13 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             video_player.setIsTouchWigetFull(true)
             video_player.setIsTouchWiget(true)
             video_player.seekRatio = 0.5f
-            tv_title.setOnClickListener {
+            tv_play.setOnClickListener {
                 video_player.startPlayLogic()
             }
+            video_player.fullscreenButton.setOnClickListener {
+                video_player.startWindowFullscreen(this, false, false);
+            }
+            video_player.backButton.setOnClickListener { onBackPressed() }
         }
 
         fun initAudioPlayer() {
@@ -268,9 +262,8 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
                 }
 
             })
+
         }
-
-
 
         fun dispatchVideoTask() {
             val avStr = intent.getStringExtra(Const.INTENT_VIDEO_AV)
@@ -292,23 +285,23 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
         }
 
         initAppBar()
-
+        setSupportActionBar(toolbar)
         dispatchVideoTask()
     }
 
-    fun initVideoIntroduction(dataBean: AvDescriptionBean.DataBean){
+    fun initVideoIntroduction(dataBean: AvDescriptionBean.DataBean) {
         val introductionFragment = IntroductionFragment()
         val bundle = Bundle()
-        bundle.putParcelable("dataBean",dataBean);
+        bundle.putParcelable("dataBean", dataBean);
         introductionFragment.arguments = bundle;
         val commentFragment = CommentFragment()
         val fragmentList = ArrayList<BaseFragment>()
         fragmentList.add(introductionFragment)
         fragmentList.add(commentFragment)
-        viewPager.adapter = MyPagerAdapter(supportFragmentManager,fragmentList)
+        viewPager.adapter = MyPagerAdapter(supportFragmentManager, fragmentList)
         tab_layout.addTab(tab_layout.newTab().setText("简介"))
         tab_layout.addTab(tab_layout.newTab().setText("评论"))
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
@@ -322,7 +315,7 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
             }
 
         })
-        viewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -360,7 +353,7 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
         loadPlayer(avUrl)
         if (audioUrl != "null") {
             audio_player.isStartAfterPrepared = false
-            audio_player.setUp(audioUrl, false, "音频测试")
+            audio_player.setUp(audioUrl, false,videoTitle)
             audio_player.isStartAfterPrepared = false
             audio_player.onPrepared()
             Log.d("PlayerActivity", "audio url = $audioUrl")
@@ -371,7 +364,7 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
     }
 
     private fun loadPlayer(avUrl: String) {
-        video_player.setUp(avUrl, false, "播放测试")
+        video_player.setUp(avUrl, false, videoTitle)
         Log.d("PlayerActivity", "av url = $avUrl")
         video_player.startAfterPrepared()
     }
@@ -400,4 +393,23 @@ class PlayerActivity : MVPActivity<PlayerContract.Presenter>(),
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val tvItem = menu?.add("tv")
+        tvItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        tvItem?.setIcon(android.R.drawable.ic_menu_send)
+        val share = menu?.add("share")
+        share?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        share?.setIcon(android.R.drawable.ic_menu_send)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val title = item?.title.toString()
+        if ("tv" == title) { //todo
+
+        } else if ("share" == title) {
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

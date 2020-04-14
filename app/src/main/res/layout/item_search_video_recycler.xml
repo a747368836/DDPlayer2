@@ -36,7 +36,7 @@
                 android:scaleType="fitXY"
                 android:layout_alignParentStart="true"
                 android:background="@drawable/shape_bg_conor_radius"
-                tools:background="@mipmap/bili_drawerbg_not_logined" />
+                tools:src="@mipmap/bili_drawerbg_not_logined" />
 
             <TextView
                 android:id="@+id/tv_duration"
@@ -47,7 +47,8 @@
                 android:layout_marginEnd="@dimen/qb_px_8"
                 android:layout_marginBottom="@dimen/qb_px_8"
                 android:background="@drawable/shape_conor_bg_black"
-                android:padding="@dimen/dp_4"
+                android:paddingStart="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_4"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 tools:text="1:28" />
@@ -62,11 +63,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_play"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:textColor="@color/black"
+                android:ellipsize="end"
                 tools:text="这里是视频的标题" />
 
 
